@@ -1,0 +1,26 @@
+export const title = "jerni: event sourcing framework for new ideas";
+export const date = "2020-05-17";
+export const author = "tungv";
+
+export default function BlogPost({ children, title }) {
+  return (
+    <main>
+      <h1>{title}</h1>
+      {children}
+    </main>
+  );
+}
+
+## Introducting jerni
+
+After 3 years of the making, finally I can proudly introduce my most ambitous OSS project `jerni` to everyone. Today, May 17th, 2020, I finally release the v1 - one of the biggest milestone of this project.
+
+## What is `jerni`
+
+This is a set of JavaScript libraries and command-line tools to facilitate an opinionated event sourcing architecture, which includes (but not limit to):
+
+1. a JavaScript library `jerni` to guide your event publishing and subscribing code.
+2. a JavaScript library `jerni-dev` to simplify your integration tests
+3. a command-line tool `jerni` to efficiently synchronize read-side and write-side in this event architecture.
+4. a command-line tool `jerni-dev` to simplify your development workflow
+5. an examplar implementation of HTTP Event Queue protocol (`heq`) backed by `redis`
