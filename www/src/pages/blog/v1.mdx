@@ -1,0 +1,33 @@
+import Layout from "../../components/Layout.js";
+export default Layout;
+
+export const title = "jerni: event sourcing framework for new ideas";
+export const date = "2020-05-17";
+export const author = "tungv";
+
+## Introducting jerni
+
+After 3 years of the making, finally I can proudly introduce my most ambitous OSS project `jerni` to everyone. Today, May 17th, 2020, I finally release the v1 - one of the biggest milestone of this project.
+
+## What is `jerni`?
+
+This is a set of JavaScript libraries and command-line tools to facilitate an opinionated event sourcing architecture, which includes (but not limit to):
+
+1. a JavaScript library `jerni` to guide your event publishing and subscribing code.
+2. a JavaScript library `jerni-dev` to simplify your integration tests
+3. a command-line tool `jerni` to efficiently synchronize read-side and write-side in this event architecture.
+4. a command-line tool `jerni-dev` to simplify your development workflow
+5. an examplar implementation of HTTP Event Queue protocol (`heq`) backed by `redis`
+
+and more…
+
+## Why `jerni`?
+
+People are constantly arguing about monolith vs micro-services. Most projects start out with a monolithic framework and a popular database system that fit their initial requirements. However, changes in requirements are inevitable especially when you're a startup. And if your startup survives, more often than not, pivotal changes need to be made, not to mention those incremental ones along the way. After a while, the tech debts that you've stacked up to catch up with deadlines become overwhelming and **"The Great Refactoring"** discussions emerge around the table. Business values enter a war with engineering desires to pay off debts.
+
+And in these situations, it's hard to deny that micro-services are getting some attentions. However, migrating from an actively developing monolith to a micro-services architecture is just a nightmare. By the books, teams start to break down the system into modules. There are 2 problems from my observations:
+
+1. Due to the lack of strong boundaries and piles of hacks built up overtime, it's not always obvious to decide what module a functionality should belong to.
+2. If a module is successfully isolated in term of logic, then the next decision is which system will own the data (ie, _where is the database_)? The newly created service or the current centralized app.
+
+Oftentimes, these half-baked micro-services architectures become an extra layer of abstraction with no added benefits. Instead of using programming language interfaces and same-process method provocations, these systems start to send messages over network, either through blocking http requests or a non-blocking message queue topology. And in order to complete a request from end-users, multiple cascading layers of network calls need to be made and multi-phase transactional rollback strategies have to be implemented.
