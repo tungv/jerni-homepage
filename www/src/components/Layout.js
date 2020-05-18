@@ -1,9 +1,29 @@
 import Head from "next/head";
 import Link from "next/link";
+import styled from "@emotion/styled";
 import { MDXProvider } from "@mdx-js/react";
 
 const components = {
-  p: TextBlock,
+  p: styled.p`
+    font-family: "Noto Serif", serif;
+    text-align: justify;
+
+    ::first-letter {
+      padding-left: 1em;
+    }
+  `,
+  li: styled.li`
+    font-family: "Noto Serif", serif;
+  `,
+  inlineCode: styled.code`
+    font-family: "Oxygen Mono", monospace;
+    display: inline-block;
+    box-sizing: border-box;
+    background: #efefef;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    padding: 1px 0.5rem;
+    border-radius: 8px;
+  `,
 };
 
 export default function Layout({ children, title }) {
@@ -31,22 +51,10 @@ export default function Layout({ children, title }) {
         <style jsx>{`
           main {
             font-family: "Lato", sans-serif;
+            padding: 24px;
           }
         `}</style>
       </div>
     </MDXProvider>
-  );
-}
-
-function TextBlock({ children, ...others }) {
-  return (
-    <p {...others}>
-      {children}
-      <style jsx>{`
-        p {
-          font-family: "Noto Serif", serif;
-        }
-      `}</style>
-    </p>
   );
 }
