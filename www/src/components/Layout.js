@@ -1,16 +1,13 @@
 import Head from "next/head";
-import Link from "next/link";
+
 import styled from "@emotion/styled";
 import { MDXProvider } from "@mdx-js/react";
+import Navigation from "./Navigation";
 
 const components = {
   p: styled.p`
     font-family: "Noto Serif", serif;
     text-align: justify;
-
-    ::first-letter {
-      padding-left: 1em;
-    }
   `,
   li: styled.li`
     font-family: "Noto Serif", serif;
@@ -21,9 +18,17 @@ const components = {
     box-sizing: border-box;
     background: #efefef;
     border: 1px solid rgba(0, 0, 0, 0.125);
+    color: black;
     padding: 1px 0.5rem;
     border-radius: 8px;
   `,
+  h1: styled.h1`
+    font-size: 3rem;
+    margin: 2rem 0;
+  `,
+  dash() {
+    return "—";
+  },
 };
 
 export default function Layout({ children, title }) {
@@ -38,20 +43,28 @@ export default function Layout({ children, title }) {
             rel="stylesheet"
           ></link>
         </Head>
-        <nav>
-          <ol>
-            <li>
-              <Link href="/">
-                <a>Home</a>
-              </Link>
-            </li>
-          </ol>
-        </nav>
+        <Navigation />
         <main>{children}</main>
+        <style jsx global>
+          {`
+            body {
+              font-size: 16px;
+              font-family: "Lato", sans-serif;
+              margin: 0;
+              padding: 0;
+            }
+
+            *::selection {
+              background: #fcd6d9;
+              color: black;
+            }
+          `}
+        </style>
         <style jsx>{`
           main {
-            font-family: "Lato", sans-serif;
             padding: 24px;
+            max-width: 960px;
+            margin: auto;
           }
         `}</style>
       </div>
