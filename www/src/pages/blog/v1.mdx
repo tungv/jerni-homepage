@@ -5,11 +5,11 @@ export const title = "jerni: event sourcing framework for new ideas";
 export const date = "2020-05-17";
 export const author = "tungv";
 
-## Introducting jerni
+# Introducting jerni
 
-After 3 years of the making, finally I can proudly introduce my most ambitous OSS project `jerni` to everyone. Today, May 17th, 2020, I finally release the v1 - one of the biggest milestone of this project.
+After 3 years of the making, finally I can proudly introduce my most ambitous OSS project `jerni` (pronounced <code>/jur•nee/</code>) to everyone. Today, May 17th, 2020, I finally release the v1 - one of the biggest milestone of this project.
 
-## What is `jerni`?
+## What is jerni?
 
 This is a set of JavaScript libraries and command-line tools to facilitate an opinionated event sourcing architecture, which includes (but not limit to):
 
@@ -21,17 +21,21 @@ This is a set of JavaScript libraries and command-line tools to facilitate an op
 
 and more…
 
-## Why `jerni`?
+## Why jerni?
 
-People are constantly arguing about monolith vs micro-services. Most projects started out with a monolithic framework pairing with a popular database system that fit their initial requirements. However, changes in requirements are inevitable, especially when you're a startup. And if your startup survives, more often than not, pivotal changes need to be made, not to mention those incremental ones along the way. After a while, the tech debts that you've stacked up to catch up with deadlines become overwhelming and **"The Great Refactoring"** discussions emerge around the table. Business values enter a war with engineering desires to pay off debts.
+People are constantly arguing about monolith vs micro-services. Most projects started out with a monolithic framework paired with a popular database system that fits their initial requirements. However, changes in requirements are inevitable, especially when you're a startup. Then if your startup survives, more often than not, pivotal changes need to be made, not to mention those incremental ones along the way. After a while, the tech debts that you've stacked up to catch up with deadlines become overwhelming and **"The Great Refactoring"** discussions emerge around the table. Business values enter a war with engineering desires to pay off debts.
 
 And in these situations, it's hard to deny that micro-services are going to get some attentions. However, migrating from an actively developing monolith to a micro-services architecture is just a nightmare. By the book, teams start to break down the system into modules. There are 2 problems from my observations:
 
 1. Due to the lack of strong boundaries and piles of hacks built up over time, it's not always obvious to decide what module a functionality should belong to.
 2. If a module is successfully isolated in term of logic, then the next decision to make is: which system will own the data (ie, _where is the database_)? The newly created service or the current centralized app. Both of them have trade-offs that can demotivate the most eager engineers.
 
-Oftentimes, these half-baked micro-services architectures become an extra layer of abstraction with no added benefits. Instead of using programming language interfaces and same-process method calls, these systems start to send messages over network, either through blocking http requests or a non-blocking message queue topology. And in order to complete a request from end-users, multiple cascading layers of network calls from service to service need to be made and multi-phase transactional rollback strategies have to be implemented.
+Oftentimes, these half-baked micro-services architectures become an extra layer of abstraction with no added benefits. Instead of using programming language interfaces and same-process method calls, these systems start to send messages over network, either through blocking http requests or a non-blocking message queue topology. In order to complete a request from end-users, multiple cascading layers of network calls from service to service need to be made and multi-phase transactional rollback strategies have to be implemented.
 
-The risk of doing the opposite — going full micro-services at the first place — is too damn high because you have to constantly think about seperation of concerns before you know what concerns you should have. It's like building an abstraction without one usage. Or building a product without any real users, other than yourself. Definitely, it could grow to fit the market, just not as likely. Too early abstractions limit how fast you can go, which is crucial in forming and storming stages.
+The risk of doing the opposite <dash /> going full micro-services at the first place <dash /> is too damn high because you have to constantly think about seperation of concerns before you know what concerns you should have. It's like building an abstraction without one usage, or building a product without any real users, other than yourself. Definitely, it could grow to fit the market, just not as likely. Too early abstractions limit how fast you can go, which is crucial in forming and storming stages.
 
-There has to be a middle ground!
+There has to be a middle ground! Something that can mitigate the cost of changes during a product lifetime. Something that can empower teams and individuals to experiment with new ideas and technologies to survive without the fear of having to deal with legacy tech debts or biz debts. Something that doesn't bring more operational complexity than its advantages. Something that doesn't step in the way when you no longer need it <dash /> when your requirements are more frozen, or when you need to trade flexibility for ultra high performance.
+
+And there comes jerni.
+
+## How does jerni solve it?
