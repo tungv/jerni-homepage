@@ -1,6 +1,7 @@
 import Head from "next/head";
-
+import slugify from "slugify";
 import styled from "@emotion/styled";
+
 import { MDXProvider } from "@mdx-js/react";
 import Navigation from "./Navigation";
 
@@ -26,6 +27,7 @@ const components = {
     font-size: 3rem;
     margin: 2rem 0;
   `,
+  h2: SlugifiedHeader,
   dash() {
     return "—";
   },
@@ -69,5 +71,29 @@ export default function Layout({ children, title }) {
         `}</style>
       </div>
     </MDXProvider>
+  );
+}
+
+function SlugifiedHeader({ children, ...props }) {
+  const id = slugify(children).toLowerCase();
+
+  return (
+    <h2 {...props} id={id} name={id}>
+      <a title={`Jump to section: ${children}`} href={`#${id}`}>
+        #
+      </a>
+      <span>{children}</span>
+      <style jsx>{`
+        h2 {
+          position: relative;
+        }
+        a {
+          font-family: "Lato", sans-serif;
+          display: block;
+          position: absolute;
+          left: -1.2rem;
+        }
+      `}</style>
+    </h2>
   );
 }
