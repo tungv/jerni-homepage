@@ -7,7 +7,7 @@ export const author = "tungv";
 
 # Introducting jerni
 
-After 3 years of the making, finally I can proudly introduce my most ambitous OSS project `jerni` (pronounced <code>/jur•nee/</code>) to everyone. Today, May 17th, 2020, I finally release the v1 - one of the biggest milestone of this project.
+After 3 years of the making, finally I can proudly introduce my most ambitous OSS project `jerni` (pronounced <code>/jur•nee/</code>) to everyone. Today, amid the 2020 pandemic, I finally release the v1 - one of the biggest milestone of this project.
 
 ## What is jerni?
 
@@ -32,10 +32,16 @@ And in these situations, it's hard to deny that micro-services are going to get 
 
 Oftentimes, these half-baked micro-services architectures become an extra layer of abstraction with no added benefits. Instead of using programming language interfaces and same-process method calls, these systems start to send messages over network, either through blocking http requests or a non-blocking message queue topology. In order to complete a request from end-users, multiple cascading layers of network calls from service to service need to be made and multi-phase transactional rollback strategies have to be implemented.
 
-The risk of doing the opposite <dash /> going full micro-services at the first place <dash /> is too damn high because you have to constantly think about seperation of concerns before you know what concerns you should have. It's like building an abstraction without one usage, or building a product without any real users, other than yourself. Definitely, it could grow to fit the market, just not as likely. Too early abstractions limit how fast you can go, which is crucial in forming and storming stages.
+The risk of doing the opposite <dash /> going full micro-services at the first place <dash /> is too damn high because you have to constantly think about seperation of concerns before you know what concerns you should have. It's like building an abstraction with only one usage, or building a product without any real users, other than yourself. Definitely, it could grow to fit the market, just not as likely. Too early abstractions limit how fast you can go, which is crucial in forming and storming stages.
 
 There has to be a middle ground! Something that can mitigate the cost of changes during a product lifetime. Something that can empower teams and individuals to experiment with new ideas and technologies to survive without the fear of having to deal with legacy tech debts or biz debts. Something that doesn't bring more operational complexity than its advantages. Something that doesn't step in the way when you no longer need it <dash /> when your requirements are more frozen, or when you need to trade flexibility for ultra high performance.
 
-And there comes jerni.
+And there comes jerni
 
 ## How does jerni solve it?
+
+> Spoiler: It doesn't solve it. Read on.
+
+To be clear, jerni is not a break-through innovation by any mean. It wasn't made for the sake of a technological thrist. Because technology change alone cannot solve this class of problems. It requires a top-down change from product development. In another word, jerni doesn't solve the problem on it own. Instead it helps enable a business-driven product development methodology in which you go from designing the UI first, in contrast to a common practice where teams' early focus is on figuring out how the schema should look like.
+
+This difference, while being subtle, is tremendously transformative. For projects in their forming stage, what you store and how you store it in your database is not very useful for ideas validation. Your audience won't understand how clever your relational database systems, nor how performing your cache layers, nor how resilient those Kafka queues are. What they care about is how easy to achieve their goals with the workflow you're proposing. If they like it more than other competitors, you win the first round.
