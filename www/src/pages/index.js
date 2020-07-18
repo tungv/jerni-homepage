@@ -8,6 +8,9 @@ export default function JerniHomePage() {
   return (
     <main className="m-2 lg:m-12">
       <Head>
+        <title>
+          jerni - a framework to build data-driven products from the ground up
+        </title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <nav>
