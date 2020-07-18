@@ -1,11 +1,15 @@
 import Link from "next/link";
+import Head from "next/head";
 import React from "react";
 
 import CodeFile from "../components/CodeFile";
 
 export default function JerniHomePage() {
   return (
-    <main className="m-12">
+    <main className="m-2 lg:m-12">
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       <nav>
         <ul>
           <li>
@@ -38,9 +42,9 @@ export default function JerniHomePage() {
           </span>
         </h1>
 
-        <section className="my-6">
+        <section className="my-6 relative">
           <header className="max-w-4xl m-auto text-center">
-            <h3 className="text-5xl">Event-driven + Functional Projection</h3>
+            <h3 className="text-5xl">Event-driven & Functional Projection</h3>
           </header>
 
           <p className="max-w-4xl m-auto text-xl font-serif p-2">
@@ -91,7 +95,7 @@ export default function JerniHomePage() {
           </div>
         </section>
 
-        <section className="my-6">
+        <section className="my-6 relative">
           <header className="max-w-4xl m-auto text-center">
             <h3 className="text-5xl">
               Strict Order &amp; Exactly Once Delivery
@@ -155,6 +159,10 @@ function EventFlow(props) {
           .horizontal {
             display: none;
           }
+
+          .vertical {
+            max-width: 100vw;
+          }
         }
 
         @media all and (min-width: 1680px) {
@@ -170,8 +178,14 @@ function EventFlow(props) {
             display: none;
           }
         }
+
+        .code {
+          max-width: 100%;
+          overflow: auto;
+          padding: 12px;
+        }
       `}</style>
-      <div className="w-full">{app}</div>
+      <div className="code">{app}</div>
       <div className="horizontal flex flex-row items-center">
         <img
           src="/events-flow.png"
@@ -185,7 +199,7 @@ function EventFlow(props) {
           alt="events are sent through an events queue"
         />
       </div>
-      <div className="w-full">{job}</div>
+      <div className="code">{job}</div>
     </div>
   );
 }
