@@ -18,6 +18,11 @@ export default function JerniHomePage() {
             </Link>
           </li>
           <li>
+            <a href="https://github.com/tungv/jerni" target="_blank">
+              GitHub
+            </a>
+          </li>
+          <li>
             <Link href="/references">
               <a>API References</a>
             </Link>
@@ -35,16 +40,18 @@ export default function JerniHomePage() {
         </ul>
       </nav>
       <div className="grid grid-cols-1 gap-6">
-        <h1 className="mb-4">
+        <h1 className="mb-4 max-w-4xl m-auto text-center p-2">
           <header className="text-5xl font-mono">jerni</header>
           <span className="text-lg font-serif">
-            a framework to build data-driven product from the ground up
+            a framework to build data-driven products from the ground up
           </span>
         </h1>
 
         <section className="my-6 relative">
           <header className="max-w-4xl m-auto text-center">
-            <h3 className="text-5xl">Event-driven & Functional Projection</h3>
+            <h3 className="text-4xl lg:text-5xl font-cursive leading-none">
+              Event-driven & Functional&nbsp;Projection
+            </h3>
           </header>
 
           <p className="max-w-4xl m-auto text-xl font-serif p-2">
@@ -97,8 +104,8 @@ export default function JerniHomePage() {
 
         <section className="my-6 relative">
           <header className="max-w-4xl m-auto text-center">
-            <h3 className="text-5xl">
-              Strict Order &amp; Exactly Once Delivery
+            <h3 className="text-4xl lg:text-5xl font-cursive leading-none">
+              Strict&nbsp;Order & Exactly&nbsp;Once Delivery
             </h3>
           </header>
 
@@ -148,7 +155,7 @@ function EventFlow(props) {
   const { app, job } = props;
 
   return (
-    <div className="grid items-center px-2 m-auto">
+    <div className="grid items-center p-0 md:px-2 m-auto">
       <style jsx>{`
         @media all and (max-width: 1679px) {
           .grid {
@@ -182,10 +189,9 @@ function EventFlow(props) {
         .code {
           max-width: 100%;
           overflow: auto;
-          padding: 12px;
         }
       `}</style>
-      <div className="code">{app}</div>
+      <div className="code p-0 md:p-2">{app}</div>
       <div className="horizontal flex flex-row items-center">
         <img
           src="/events-flow.png"
@@ -199,7 +205,7 @@ function EventFlow(props) {
           alt="events are sent through an events queue"
         />
       </div>
-      <div className="code">{job}</div>
+      <div className="code px-0 py-4 md:p-2">{job}</div>
     </div>
   );
 }

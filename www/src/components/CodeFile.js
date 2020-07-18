@@ -5,7 +5,7 @@ export default function CodeFile(props) {
   const { fileName, code } = props;
 
   return (
-    <div className="rounded-lg overflow-hidden m-2 shadow-lg text-xs sm:text-sm md:text-md">
+    <div className="rounded-lg overflow-hidden shadow-lg text-xs sm:text-sm md:text-md">
       <header>
         <h6 className="bg-black text-white py-1 px-3 border-b-2 border-green-300 flex items-center">
           <span className="text-gray-300 font-mono text-sm mr-1">file: </span>
