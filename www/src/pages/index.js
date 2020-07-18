@@ -122,7 +122,7 @@ export default function JerniHomePage() {
             <EventFlow
               app={
                 <CodeFile
-                  fileName="controllers/accounts.js"
+                  fileName="controllers/transactions.js"
                   code={STRICT_ORDER_APP_JS}
                 />
               }
@@ -144,16 +144,48 @@ function EventFlow(props) {
   const { app, job } = props;
 
   return (
-    <div className="flex flex-row items-center max-w-full">
-      <div className="flex-1">{app}</div>
-      <div className="">
+    <div className="grid items-center px-2 m-auto">
+      <style jsx>{`
+        @media all and (max-width: 1679px) {
+          .grid {
+            max-width: max(800px, 52rem);
+            grid-template-rows: repeat(3, auto);
+          }
+
+          .horizontal {
+            display: none;
+          }
+        }
+
+        @media all and (min-width: 1680px) {
+          .grid {
+            max-width: 2000px;
+            grid-template-columns: minmax(500px, 800px) minmax(300px, 1fr) minmax(
+                500px,
+                800px
+              );
+          }
+
+          .vertical {
+            display: none;
+          }
+        }
+      `}</style>
+      <div className="w-full">{app}</div>
+      <div className="horizontal flex flex-row items-center">
         <img
-          width={300}
           src="/events-flow.png"
           alt="events are sent through an events queue"
         />
       </div>
-      <div className="flex-1">{job}</div>
+      <div className="vertical flex flex-col items-center">
+        <img
+          width={120}
+          src="/events-flow-vertical.png"
+          alt="events are sent through an events queue"
+        />
+      </div>
+      <div className="w-full">{job}</div>
     </div>
   );
 }
@@ -164,7 +196,11 @@ import journey from './journey.js';
 // to make a change, commit an event
 await journey.commit({
   type: "ACCOUNT_CREATED",
-  payload: { id: "8aud23jm", account_name: "Alice" }
+  payload: {
+    id: "8aud23jm",
+    account_name: "Alice",
+    currency: "USD",
+  }
 });
 `;
 
@@ -180,7 +216,9 @@ export default new Model({
         insertOne: {
           id: event.payload.id,
           name: event.payload.account_name,
-          balance: 0
+          balance: {
+            [event.payload.currency]: 0
+          }
         }
       }
     }
@@ -216,14 +254,18 @@ export default new Model({
         dest,
         amount,
         rate,
+        src_currency,
+        dest_currency,
       } = event.payload;
-      
+
       return [
         {
           updateOne: {
             where: { id: src },
             changes: {
-              $inc: { balance: amount * -1 }
+              $inc: {
+                [\`balance.$\{src_currency\}\`]: amount * -1
+              }
             }
           }
         },
@@ -231,7 +273,9 @@ export default new Model({
           updateOne: {
             where: { id: dest },
             changes: {
-              $inc: { balance: amount * rate }
+              $inc: {
+                [\`balance.$\{dest_currency\}\`]: amount * rate
+              }
             }
           }
         },

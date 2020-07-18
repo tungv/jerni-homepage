@@ -20,7 +20,11 @@ export default function CodeFile(props) {
         language="jsx"
       >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre className={className} style={style} className="p-2">
+          <pre
+            className={className}
+            style={style}
+            className="p-2 overflow-auto"
+          >
             {tokens.map((line, i) => (
               <div {...getLineProps({ line, key: i })}>
                 {line.map((token, key) => (
