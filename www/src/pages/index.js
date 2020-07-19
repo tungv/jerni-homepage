@@ -114,8 +114,7 @@ export default function JerniHomePage() {
 
           <p className="max-w-4xl m-auto text-xl font-serif p-2">
             jerni takes a few trade-offs in term of maximizing speed in order to
-            ensure 2 important assumptions in data flow. Pessimistic locking is
-            a thing in a past.
+            ensure 2 important assumptions in data flow.
           </p>
 
           <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
@@ -130,6 +129,12 @@ export default function JerniHomePage() {
             missing or duplicate events. Events are not only come in order but
             also come once and only once. However, right when you need to, they
             are there for you to re-run just like the first time.
+          </p>
+
+          <p className="max-w-4xl m-auto text-xl font-serif p-2">
+            With these 2 assumptions combined, pessimistic locking is a thing in
+            the past. Even when in a server crashing situation, once it resumes,
+            consistency is eventually restored.
           </p>
 
           <div>
