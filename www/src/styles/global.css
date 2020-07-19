@@ -20,3 +20,7 @@ a[target="_blank"]::after {
 p {
   @apply font-serif;
 }
+
+kbd {
+  @apply border border-b-2 px-2 rounded bg-gray-100 border-gray-700 shadow-xs font-mono;
+}
