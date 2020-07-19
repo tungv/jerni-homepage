@@ -12,5 +12,10 @@
     "react-dom": "^16.13.1",
     "slugify": "^1.4.0",
     "tailwindcss": "^1.5.1"
+  },
+  "scripts": {
+    "start": "next start",
+    "build": "next build",
+    "dev": "next dev"
   }
 }
