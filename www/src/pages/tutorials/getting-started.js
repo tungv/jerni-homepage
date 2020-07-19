@@ -32,7 +32,7 @@ export default function GettingStartedPage() {
             <a href="#set-up-express">Set Up Express</a>
           </li>
           <li>
-            <a href="#create-journey">Create journey</a>
+            <a href="#create-journey">Create a journey</a>
           </li>
           <li>
             <a href="#commit-event">Commit an Event</a>
@@ -317,8 +317,8 @@ module.exports = new Model({
       </div>
 
       <p>
-        To verify this , you can run this bash script in your terminal at the
-        project root directory, given you have your local mongodb server
+        To verify if this works, you can run this bash script in your terminal
+        at the project root directory, given you have your local mongodb server
         listening on its default port
       </p>
 
@@ -361,11 +361,33 @@ function CommitEvent({ useYarn }) {
       </header>
 
       <p>
-        Nothing fancy yet, now let's initialize <code>jerni</code> to our
-        server.
+        Nothing fancy yet, now let's initialize <code>jerni</code> to our server
+        by invoking <code>initialize()</code> function we exported above. That
+        function returns a Promise that will eventually resolve to a journey
+        object.
       </p>
 
-      <CodeFile language="js">
+      <CodeFile language="js" fileName="server.js">
+        {`
+/* ... */
+const initialize = require("./journey");
+
+initialize().then((journey) => {
+  console.log("journey is ready!");
+  
+  app.get("/api/accounts", (req, res) => { /* ... */ });
+  
+  app.post("/api/accounts", express.json(), (req, res) => { /* ... */ });
+  
+  app.listen(port, () =>
+  console.log(\`Example app listening at http://localhost:$\{port}\`),
+  );
+});
+`}
+      </CodeFile>
+
+      <p>Then let's use that journey object to commit an event.</p>
+      <CodeFile language="js" fileName="server.js">
         {`
 /* ... */
 app.post("/api/accounts", express.json(), async (req, res) => {
@@ -574,7 +596,7 @@ function ReadDataFromMongoDB() {
         Modify the code in <code>app.get(...)</code> handler
       </p>
 
-      <CodeFile language="js">{`
+      <CodeFile language="js" fileName="server.js">{`
 app.get("/api/accounts", async (req, res) => {
   const Accounts = await journey.getReader(
     require("./journey/models/accounts"),
