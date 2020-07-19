@@ -2,10 +2,19 @@ import React from "react";
 
 import CodeFile from "../components/CodeFile";
 import HomeLayout from "../components/HomeLayout";
+import Link from "next/link";
 
 export default function JerniHomePage() {
   return (
     <HomeLayout>
+      <div className="max-w-4xl m-auto text-center">
+        <Link href="/tutorials/getting-started">
+          <a className="border text-2xl px-12 py-4 rounded-full border-teal-500 hover:bg-teal-300 no-underline">
+            Getting Started
+          </a>
+        </Link>
+      </div>
+
       <section className="my-6 relative">
         <header className="max-w-4xl m-auto text-center">
           <h3 className="text-4xl lg:text-5xl font-cursive leading-none">
