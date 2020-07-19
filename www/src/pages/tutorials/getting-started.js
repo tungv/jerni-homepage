@@ -2,6 +2,7 @@ import React, { useReducer } from "react";
 
 import CodeFile from "../../components/CodeFile";
 import HomeLayout from "../../components/HomeLayout";
+import Link from "next/link";
 
 export default function GettingStartedPage() {
   const [useYarn, toggle] = useReducer((isYarn) => !isYarn, false);
@@ -231,7 +232,7 @@ app.listen(port, () =>
 `}
         </CodeFile>
 
-        <p>And finally start the app by running this bash script in terminal</p>
+        <p>Now start the app by running this bash script in terminal</p>
 
         <CodeFile
           language="bash"
@@ -288,9 +289,20 @@ app.post("/api/accounts", express.json(), async (req, res) => {
         </CodeFile>
 
         <p>
-          Restart express server, and try to <code>POST /api/accounts</code>{" "}
-          again
+          Restart express server, this time{" "}
+          <strong>don't forget to include environment keys</strong>, and try to{" "}
+          <code>POST /api/accounts</code> again
         </p>
+
+        <CodeFile
+          language="bash"
+          code={
+            "MONGODB_URL=mongodb://localhost:27017 MONGODB_DBNAME=banks node server"
+          }
+          result={`journey is ready!
+Example app listening at http://localhost:3000
+        `}
+        ></CodeFile>
 
         <CodeFile
           language="bash"
@@ -446,6 +458,91 @@ curl -XPOST localhost:3000/api/accounts \\
             seeding data for the next developer to begin with.
           </p>
         </div>
+      </section>
+
+      <section className="w-full max-w-4xl m-auto p-2 grid grid-cols-1 gap-2">
+        <header>
+          <h3 className="text-2xl">Read data from MongoDB</h3>
+        </header>
+
+        <p>
+          Modify the code in <code>app.get(...)</code> handler
+        </p>
+
+        <CodeFile language="js">{`
+app.get("/api/accounts", async (req, res) => {
+  const Accounts = await journey.getReader(
+    require("./journey/models/accounts"),
+  );
+  const allAccounts = await Accounts.find({}).toArray();
+
+  res.send(allAccounts);
+});`}</CodeFile>
+
+        <p>
+          Restart express app and try to <code>GET /api/accounts</code> again
+        </p>
+
+        <CodeFile
+          language="bash"
+          outputLanguage="json"
+          code={`curl localhost:3000/api/accounts`}
+          result={`[
+  {
+    "_id": "5f13fe55239e75e5d26027f9",
+    "__op": 0,
+    "__v": 1,
+    "balance": {
+      "USD": 0
+    },
+    "id": 1024340236565,
+    "name": "test"
+  }
+]
+          `}
+        ></CodeFile>
+
+        <p>
+          <code>#getReader()</code> will return a promise of a read-only
+          mongodb's <code>Collection</code> object. You don't need to worry
+          about the actual collection name.
+        </p>
+
+        <div className="p-4 border-l-4 border-green-500 bg-green-100 grid grid-cols-1 gap-4">
+          <p>
+            <code>jerni</code> also adds <code>__op</code> and <code>__v</code>{" "}
+            to all mongodb documents in order to handle optimistic locking. You
+            can leverage that to detect stale data from your API clients.
+            Otherwise, you don't have to send those information back to the
+            aforementioned clients.
+          </p>
+        </div>
+      </section>
+
+      <section className="w-full max-w-4xl m-auto p-2 grid grid-cols-1 gap-2">
+        <header>
+          <h3 className="text-2xl">Verdict</h3>
+        </header>
+        <p>
+          That's it! These are the minimum code you need to bootstrap a{" "}
+          <code>jerni</code> application. This does NOT in any mean show the
+          true power of the architecture behind <code>jerni</code>.
+        </p>
+
+        <nav>
+          <ul>
+            <li>
+              <Link href="/tutorials/concepts">
+                <a>Click here to learn more about the core concepts</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/references">
+                <a>Click here to read the API References</a>
+              </Link>
+            </li>
+          </ul>
+        </nav>
       </section>
     </HomeLayout>
   );
