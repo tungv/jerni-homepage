@@ -1,248 +1,202 @@
-import Link from "next/link";
-import Head from "next/head";
 import React from "react";
 
 import CodeFile from "../components/CodeFile";
+import HomeLayout from "../components/HomeLayout";
 
 export default function JerniHomePage() {
   return (
-    <main className="m-2 lg:m-12">
-      <Head>
-        <title>
-          jerni - a framework to build data-driven products from the ground up
-        </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
-      <nav>
-        <ul>
-          <li>
-            <Link href="/">
-              <a>home</a>
-            </Link>
-          </li>
-          <li>
-            <a href="https://github.com/tungv/jerni" target="_blank">
-              GitHub
-            </a>
-          </li>
-          <li>
-            <Link href="/references">
-              <a>API References</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/tutorials">
-              <a>Tutorials</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/Blogs">
-              <a>Blogs</a>
-            </Link>
-          </li>
-        </ul>
-      </nav>
-      <div className="grid grid-cols-1 gap-6">
-        <h1 className="mb-4 max-w-4xl m-auto text-center p-2">
-          <header className="text-5xl font-mono">jerni</header>
-          <span className="text-lg font-serif">
-            a framework to build data-driven products from the ground up
-          </span>
-        </h1>
+    <HomeLayout>
+      <section className="my-6 relative">
+        <header className="max-w-4xl m-auto text-center">
+          <h3 className="text-4xl lg:text-5xl font-cursive leading-none">
+            Event-driven & Functional&nbsp;Projection
+          </h3>
+        </header>
 
-        <section className="my-6 relative">
-          <header className="max-w-4xl m-auto text-center">
-            <h3 className="text-4xl lg:text-5xl font-cursive leading-none">
-              Event-driven & Functional&nbsp;Projection
-            </h3>
-          </header>
+        <p className="max-w-4xl m-auto text-xl font-serif p-2">
+          <code>jerni</code> is built primarily on the concepts of{" "}
+          <a
+            href="https://martinfowler.com/eaaDev/EventSourcing.html"
+            target="_blank"
+          >
+            Event Sourcing
+          </a>{" "}
+          and{" "}
+          <a href="https://martinfowler.com/bliki/CQRS.html" target="_blank">
+            CQRS
+          </a>{" "}
+          despite some differences from the mainstream implementations . It also
+          embraces the functional programming techniques to simplify
+          state-changing operations without sacrifice flexibility.
+        </p>
 
-          <p className="max-w-4xl m-auto text-xl font-serif p-2">
-            <code>jerni</code> is built primarily on the concepts of{" "}
-            <a
-              href="https://martinfowler.com/eaaDev/EventSourcing.html"
-              target="_blank"
-            >
-              Event Sourcing
-            </a>{" "}
-            and{" "}
-            <a href="https://martinfowler.com/bliki/CQRS.html" target="_blank">
-              CQRS
-            </a>{" "}
-            despite some differences from the mainstream implementations . It
-            also embraces the functional programming techniques to simplify
-            state-changing operations without sacrifice flexibility.
-          </p>
+        <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
+          <strong>Event-Driven:</strong> You describe your business logic using
+          a sequence of events. Those events are defined with the vocabulary of
+          business users instead of technical terms to ensure the system is
+          resilient to underlaying technological changes.
+        </p>
 
-          <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
-            <strong>Event-Driven:</strong> You describe your business logic
-            using a sequence of events. Those events are defined with the
-            vocabulary of business users instead of technical terms to ensure
-            the system is resilient to underlaying technological changes.
-          </p>
+        <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
+          <strong>Functional Projection:</strong> Committed events are
+          translated into storage layers' operations in order to persist
+          changes. These translations are done in a functional manner. This
+          guarantees you can always reproduce the state of your data at any
+          point in time on any computer.
+        </p>
 
-          <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
-            <strong>Functional Projection:</strong> Committed events are
-            translated into storage layers' operations in order to persist
-            changes. These translations are done in a functional manner. This
-            guarantees you can always reproduce the state of your data at any
-            point in time on any computer.
-          </p>
+        <div>
+          <EventFlow
+            app={
+              <CodeFile
+                fileName="controllers/accounts.js"
+                code={EVENT_DRIVEN_APP_JS}
+              />
+            }
+            job={
+              <CodeFile
+                fileName="models/accounts.js"
+                code={EVENT_DRIVEN_JOB_JS}
+              />
+            }
+          />
+        </div>
+      </section>
 
-          <div>
-            <EventFlow
-              app={
-                <CodeFile
-                  fileName="controllers/accounts.js"
-                  code={EVENT_DRIVEN_APP_JS}
-                />
-              }
-              job={
-                <CodeFile
-                  fileName="models/accounts.js"
-                  code={EVENT_DRIVEN_JOB_JS}
-                />
-              }
-            />
-          </div>
-        </section>
+      <section className="my-6 relative">
+        <header className="max-w-4xl m-auto text-center">
+          <h3 className="text-4xl lg:text-5xl font-cursive leading-none">
+            Strict&nbsp;Order & Exactly&nbsp;Once Delivery
+          </h3>
+        </header>
 
-        <section className="my-6 relative">
-          <header className="max-w-4xl m-auto text-center">
-            <h3 className="text-4xl lg:text-5xl font-cursive leading-none">
-              Strict&nbsp;Order & Exactly&nbsp;Once Delivery
-            </h3>
-          </header>
+        <p className="max-w-4xl m-auto text-xl font-serif p-2">
+          <code>jerni</code> takes a few trade-offs in term of maximizing speed
+          in order to ensure 2 important assumptions in data flow.
+        </p>
 
-          <p className="max-w-4xl m-auto text-xl font-serif p-2">
-            <code>jerni</code> takes a few trade-offs in term of maximizing
-            speed in order to ensure 2 important assumptions in data flow.
-          </p>
+        <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
+          <strong>Strict Order:</strong> after being committed, each event will
+          receive a globally monotonic increasing numerical ID. All processing
+          is then strictly done following that order{" "}
+          <b>No Matter What&trade;</b>
+        </p>
 
-          <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
-            <strong>Strict Order:</strong> after being committed, each event
-            will receive a globally monotonic increasing numerical ID. All
-            processing is then strictly done following that order{" "}
-            <b>No Matter What&trade;</b>
-          </p>
+        <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
+          <strong>Exactly Once Delivery:</strong> Never have to worry about
+          missing or duplicate events. Events are not only come in order but
+          also come once and only once. However, right when you need to, they
+          are there for you to re-run just like the first time.
+        </p>
 
-          <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
-            <strong>Exactly Once Delivery:</strong> Never have to worry about
-            missing or duplicate events. Events are not only come in order but
-            also come once and only once. However, right when you need to, they
-            are there for you to re-run just like the first time.
-          </p>
+        <p className="max-w-4xl m-auto text-xl font-serif p-2">
+          With these 2 assumptions combined, pessimistic locking is a thing in
+          the past. Even when a server crashes, once <code>jerni</code> resumes
+          (on that machine or where else), consistency is eventually restored.{" "}
+          <em>Race conditions will never happen in projection stage</em>.
+        </p>
 
-          <p className="max-w-4xl m-auto text-xl font-serif p-2">
-            With these 2 assumptions combined, pessimistic locking is a thing in
-            the past. Even when a server crashes, once <code>jerni</code>{" "}
-            resumes (on that machine or where else), consistency is eventually
-            restored.{" "}
-            <em>Race conditions will never happen in projection stage</em>.
-          </p>
+        <div>
+          <EventFlow
+            app={
+              <CodeFile
+                fileName="controllers/transactions.js"
+                code={STRICT_ORDER_APP_JS}
+              />
+            }
+            job={
+              <CodeFile
+                fileName="models/accounts.js"
+                code={STRICT_ORDER_JOB_JS}
+              />
+            }
+          />
+        </div>
+      </section>
 
-          <div>
-            <EventFlow
-              app={
-                <CodeFile
-                  fileName="controllers/transactions.js"
-                  code={STRICT_ORDER_APP_JS}
-                />
-              }
-              job={
-                <CodeFile
-                  fileName="models/accounts.js"
-                  code={STRICT_ORDER_JOB_JS}
-                />
-              }
-            />
-          </div>
-        </section>
+      <section className="my-6 relative">
+        <header className="max-w-4xl m-auto text-center">
+          <h3 className="text-4xl lg:text-5xl font-cursive leading-none">
+            Developer Experience
+          </h3>
+        </header>
 
-        <section className="my-6 relative">
-          <header className="max-w-4xl m-auto text-center">
-            <h3 className="text-4xl lg:text-5xl font-cursive leading-none">
-              Developer Experience
-            </h3>
-          </header>
+        <p className="max-w-4xl m-auto text-xl font-serif p-2">
+          <code>jerni</code> comes together with{" "}
+          <a href="https://npm.im/jerni-dev">
+            <code>jerni-dev</code>
+          </a>{" "}
+          &mdash; a set of dev-tools to ease the development workflow locally.{" "}
+          <code>jerni-dev</code> also includes test helpers to make integration
+          tests less of a hassle.
+        </p>
 
-          <p className="max-w-4xl m-auto text-xl font-serif p-2">
-            <code>jerni</code> comes together with{" "}
-            <a href="https://npm.im/jerni-dev">
-              <code>jerni-dev</code>
-            </a>{" "}
-            &mdash; a set of dev-tools to ease the development workflow locally.{" "}
-            <code>jerni-dev</code> also includes test helpers to make
-            integration tests less of a hassle.
-          </p>
+        <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
+          <strong>Hot Reload Logic:</strong> Once you save a file defining a
+          projection logic, <code>jerni-dev</code> will automatically reload,
+          and your storage layers will immediately reflect the changes. If your
+          want the change to later apply in production, simply change the
+          version of the model, and in the next deployment, your production data
+          will reflect.
+        </p>
 
-          <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
-            <strong>Hot Reload Logic:</strong> Once you save a file defining a
-            projection logic, <code>jerni-dev</code> will automatically reload,
-            and your storage layers will immediately reflect the changes. If
-            your want the change to later apply in production, simply change the
-            version of the model, and in the next deployment, your production
-            data will reflect.
-          </p>
+        <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
+          <strong>Hot Reload Data:</strong> If you commit an event by mistake,
+          you can browse the list of local events to modify or remove that
+          event. Again, if a valid change is made to the list of events, your
+          local database will immediately reflect that. It's like rewrite the
+          history, which is forbidden in production but commonly desired in
+          development.
+        </p>
 
-          <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
-            <strong>Hot Reload Data:</strong> If you commit an event by mistake,
-            you can browse the list of local events to modify or remove that
-            event. Again, if a valid change is made to the list of events, your
-            local database will immediately reflect that. It's like rewrite the
-            history, which is forbidden in production but commonly desired in
-            development.
-          </p>
+        <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
+          <strong>Test Instance:</strong> You don't have to set up and tear down
+          an external <code>jerni</code> or even <code>jerni-dev</code> process
+          in order to write integration tests. An in-memory instance will
+          seamlessly wrap your code and dispose on your request.
+        </p>
 
-          <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
-            <strong>Test Instance:</strong> You don't have to set up and tear
-            down an external <code>jerni</code> or even <code>jerni-dev</code>{" "}
-            process in order to write integration tests. An in-memory instance
-            will seamlessly wrap your code and dispose on your request.
-          </p>
+        <p className="max-w-4xl m-auto text-xl font-serif p-2">
+          We want you to feel comfortable developing your product. Say good-bye
+          to the microservices nightmare local setup and focus on the modules
+          that you are working on.
+        </p>
 
-          <p className="max-w-4xl m-auto text-xl font-serif p-2">
-            We want you to feel comfortable developing your product. Say
-            good-bye to the microservices nightmare local setup and focus on the
-            modules that you are working on.
-          </p>
+        <div>{/* add screenshots here */}</div>
+      </section>
 
-          <div>{/* add screenshots here */}</div>
-        </section>
+      <section className="my-6 relative">
+        <header className="max-w-4xl m-auto text-center">
+          <h3 className="text-4xl lg:text-5xl font-cursive leading-none">
+            Forward Compatible
+          </h3>
+        </header>
 
-        <section className="my-6 relative">
-          <header className="max-w-4xl m-auto text-center">
-            <h3 className="text-4xl lg:text-5xl font-cursive leading-none">
-              Forward Compatible
-            </h3>
-          </header>
+        <p className="max-w-4xl m-auto text-xl font-serif p-2">
+          As of today, <code>jerni</code> uses{" "}
+          <a href="https://redis.io/" target="_blank">
+            Redis
+          </a>{" "}
+          as its events store and officially provides{" "}
+          <a href="https://npm.im/@jerni/store-mongo" target="_blank">
+            a MongoDB store
+          </a>{" "}
+          for projections. However, we are actively develop other adapters like
+          PostgreSQL for events store and a projection store with{" "}
+          <a href="https://neo4j.com/" target="_blank">
+            Neo4J Graph Database
+          </a>
+          .
+        </p>
 
-          <p className="max-w-4xl m-auto text-xl font-serif p-2">
-            As of today, <code>jerni</code> uses{" "}
-            <a href="https://redis.io/" target="_blank">
-              Redis
-            </a>{" "}
-            as its events store and officially provides{" "}
-            <a href="https://npm.im/@jerni/store-mongo" target="_blank">
-              a MongoDB store
-            </a>{" "}
-            for projections. However, we are actively develop other adapters
-            like PostgreSQL for events store and a projection store with{" "}
-            <a href="https://neo4j.com/" target="_blank">
-              Neo4J Graph Database
-            </a>
-            .
-          </p>
-
-          <p className="max-w-4xl m-auto text-xl font-serif p-2">
-            <code>jerni</code> is built around open protocol based on the
-            standard HTTP. So support for languagues other than JavaScript is
-            possible. We want to keep the API surface compact so new
-            clients/adapters integration would be simplified.
-          </p>
-        </section>
-      </div>
-    </main>
+        <p className="max-w-4xl m-auto text-xl font-serif p-2">
+          <code>jerni</code> is built around open protocol based on the standard
+          HTTP. So support for languagues other than JavaScript is possible. We
+          want to keep the API surface compact so new clients/adapters
+          integration would be simplified.
+        </p>
+      </section>
+    </HomeLayout>
   );
 }
 
