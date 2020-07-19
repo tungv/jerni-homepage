@@ -29,7 +29,10 @@ export default function GettingStartedPage() {
           </label>
         </header>
 
-        <p>First and foremost, let create a folder for this new project.</p>
+        <p>
+          First and foremost, let create a folder for this new project. Open a
+          terminal and run these bash code
+        </p>
 
         <div>
           <CodeFile language="bash">
@@ -40,7 +43,7 @@ ${useYarn ? `yarn init -y` : `npm init -y`}`}
           </CodeFile>
         </div>
 
-        <p>You need to install jerni and MongoDB projection store package.</p>
+        <p>You need to install jerni and MongoDB projection store packages.</p>
 
         <div>
           <CodeFile language="bash">
@@ -60,9 +63,25 @@ ${useYarn ? `yarn init -y` : `npm init -y`}`}
             {useYarn ? `yarn add -D jerni-dev` : `npm i -D jerni-dev`}
           </CodeFile>
         </div>
+
+        <p>
+          To verify if you have install the packages correctly, open your{" "}
+          <code>package.json</code> file, and you should be able to find this
+          snippet (the actual versions may vary).
+        </p>
+
+        <CodeFile language="json" fileName="package.json">{`{
+  "dependencies": {
+    "@jerni/store-mongo": "^1.0.0",
+    "jerni": "^1.0.0"
+  },
+  "devDependencies": {
+    "jerni-dev": "^1.0.0"
+  }
+}`}</CodeFile>
       </section>
 
-      <section className="w-full max-w-4xl m-auto p-2">
+      <section className="w-full max-w-4xl m-auto p-2 grid grid-cols-1 gap-2">
         <header>
           <h3 className="text-2xl">Create a journey</h3>
         </header>
@@ -71,8 +90,7 @@ ${useYarn ? `yarn init -y` : `npm init -y`}`}
           and your mongodb are.
         </p>
 
-        <div className="grid grid-cols-1 gap-4">
-          <CodeFile language="js" fileName="journey/index.js">{`
+        <CodeFile language="js" fileName="journey/index.js">{`
 const createJourney = require("jerni");
 const { makeStore } = require("@jerni/store-mongo");
 
@@ -93,7 +111,7 @@ module.exports = async function initialize() {
   });
 };
 `}</CodeFile>
-          <CodeFile language="js" fileName="journey/models/accounts.js">{`
+        <CodeFile language="js" fileName="journey/models/accounts.js">{`
 const { Model } = require("@jerni/store-mongo");
 const mapEvents = require("jerni/lib/mapEvents");
 
@@ -115,6 +133,29 @@ module.exports = new Model({
   }),
 });
 `}</CodeFile>
+
+        <p>
+          We have declared a journey that will commit events to a server behind
+          the environment key <code>EVENTS_QUEUE_URL</code> and read projected
+          data from a mongodb specified by <code>MONGODB_URL</code> and{" "}
+          <code>MONGODB_DBNAME</code>.
+        </p>
+
+        <div className="p-4 border-l-4 border-green-500 bg-green-100 grid grid-cols-1 gap-4">
+          <p>
+            <strong>Note</strong>: we now have 2 different places for data to
+            stay. This is under the effect of CQRS &mdash; Command&ndash;Query
+            Responsibility Segregation. This architectural pattern optimizes for
+            both write and read operations as each of them can be carried out by
+            a specified tool. For example, we write data to an append-only queue
+            in-memory (with disk dump) and read from a denormalized mongodb
+            database.
+          </p>
+          <p>
+            Don't be confused, there is only one source of truth and it's the
+            events queue. The mongodb stores are only projections. Similar to
+            Views in SQL, they are derived from the sequence of events.
+          </p>
         </div>
       </section>
     </HomeLayout>
