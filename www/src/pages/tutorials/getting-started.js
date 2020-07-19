@@ -305,7 +305,7 @@ module.exports = new Model({
           stay. This is under the effect of CQRS &mdash; Command&ndash;Query
           Responsibility Segregation. This architectural pattern optimizes for
           both write and read operations as each of them can be carried out by a
-          specified tool. For example, we write data to an append-only queue
+          specialized tool. For example, we write data to an append-only queue
           in-memory (with disk dump) and read from a denormalized mongodb
           database.
         </p>
