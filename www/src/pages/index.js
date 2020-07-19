@@ -58,7 +58,7 @@ export default function JerniHomePage() {
           </header>
 
           <p className="max-w-4xl m-auto text-xl font-serif p-2">
-            jerni is built primarily on the concepts of{" "}
+            <code>jerni</code> is built primarily on the concepts of{" "}
             <a
               href="https://martinfowler.com/eaaDev/EventSourcing.html"
               target="_blank"
@@ -68,8 +68,9 @@ export default function JerniHomePage() {
             and{" "}
             <a href="https://martinfowler.com/bliki/CQRS.html" target="_blank">
               CQRS
-            </a>
-            . It also embraces the functional programming techniques to simplify
+            </a>{" "}
+            despite some differences from the mainstream implementations . It
+            also embraces the functional programming techniques to simplify
             state-changing operations without sacrifice flexibility.
           </p>
 
@@ -81,10 +82,11 @@ export default function JerniHomePage() {
           </p>
 
           <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
-            <strong>Functional Projections:</strong> Events are translated into
-            technical terms in order to interact with storage layers. These
-            translations are done in a functional manner. This guarantees you
-            can always reproduce the state of your data at any point in time.
+            <strong>Functional Projection:</strong> Committed events are
+            translated into storage layers' operations in order to persist
+            changes. These translations are done in a functional manner. This
+            guarantees you can always reproduce the state of your data at any
+            point in time on any computer.
           </p>
 
           <div>
@@ -113,8 +115,8 @@ export default function JerniHomePage() {
           </header>
 
           <p className="max-w-4xl m-auto text-xl font-serif p-2">
-            jerni takes a few trade-offs in term of maximizing speed in order to
-            ensure 2 important assumptions in data flow.
+            <code>jerni</code> takes a few trade-offs in term of maximizing
+            speed in order to ensure 2 important assumptions in data flow.
           </p>
 
           <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
@@ -133,8 +135,10 @@ export default function JerniHomePage() {
 
           <p className="max-w-4xl m-auto text-xl font-serif p-2">
             With these 2 assumptions combined, pessimistic locking is a thing in
-            the past. Even when in a server crashing situation, once it resumes,
-            consistency is eventually restored.
+            the past. Even when a server crashes, once <code>jerni</code>{" "}
+            resumes (on that machine or where else), consistency is eventually
+            restored.{" "}
+            <em>Race conditions will never happen in projection stage</em>.
           </p>
 
           <div>
@@ -153,6 +157,57 @@ export default function JerniHomePage() {
               }
             />
           </div>
+        </section>
+
+        <section className="my-6 relative">
+          <header className="max-w-4xl m-auto text-center">
+            <h3 className="text-4xl lg:text-5xl font-cursive leading-none">
+              Developer Experience
+            </h3>
+          </header>
+
+          <p className="max-w-4xl m-auto text-xl font-serif p-2">
+            <code>jerni</code> comes together with{" "}
+            <a href="https://npm.im/jerni-dev">
+              <code>jerni-dev</code>
+            </a>{" "}
+            &mdash; a set of dev-tools to ease the development workflow locally.{" "}
+            <code>jerni-dev</code> also includes test helpers to make
+            integration tests less of a hassle.
+          </p>
+
+          <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
+            <strong>Hot Reload Logic:</strong> Once you save a file defining a
+            projection logic, <code>jerni-dev</code> will automatically reload,
+            and your storage layers will immediately reflect the changes. If
+            your want the change to later apply in production, simply change the
+            version of the model, and in the next deployment, your production
+            data will reflect.
+          </p>
+
+          <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
+            <strong>Hot Reload Data:</strong> If you commit an event by mistake,
+            you can browse the list of local events to modify or remove that
+            event. Again, if a valid change is made to the list of events, your
+            local database will immediately reflect that. It's like rewrite the
+            history, which is forbidden in production but commonly desired in
+            development.
+          </p>
+
+          <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
+            <strong>Test Instance:</strong> You don't have to set up and tear
+            down an external <code>jerni</code> or even <code>jerni-dev</code>{" "}
+            process in order to write integration tests. An in-memory instance
+            will seamlessly wrap your code and dispose on your request.
+          </p>
+
+          <p className="max-w-4xl m-auto text-xl font-serif p-2">
+            We want you to feel comfortable developing your product. Say
+            good-bye to the microservices nightmare local setup and focus on the
+            modules that you are working on.
+          </p>
+
+          <div>{/* add screenshots here */}</div>
         </section>
       </div>
     </main>
