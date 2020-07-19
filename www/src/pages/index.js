@@ -219,7 +219,7 @@ function EventFlow(props) {
 }
 
 const EVENT_DRIVEN_APP_JS = `
-import journey from './journey.js';
+const journey = require('./journey.js');
 
 // to make a change, commit an event
 await journey.commit({
@@ -233,12 +233,12 @@ await journey.commit({
 `;
 
 const EVENT_DRIVEN_JOB_JS = `
-import { Model } from '@jerni/store-mongo';
-import mapEvents from 'jerni/lib/mapEvents';
+const { Model } = require('@jerni/store-mongo');
+const mapEvents = require('jerni/lib/mapEvents');
 
-export default new Model({
+module.exports = new Model({
   name: 'accounts',
-  transform: handleEvents({
+  transform: mapEvents({
     ACCOUNT_CREATED(event) {
       return {
         insertOne: {
@@ -255,7 +255,7 @@ export default new Model({
 `;
 
 const STRICT_ORDER_APP_JS = `
-import journey from './journey.js';
+const journey = require('./journey.js');
 
 // committed events are assigned with an ID
 const event = await journey.commit({
@@ -272,9 +272,9 @@ const event = await journey.commit({
 `;
 
 const STRICT_ORDER_JOB_JS = `
-export default new Model({
+module.exports = new Model({
   name: 'accounts',
-  transform: handleEvents({
+  transform: mapEvents({
     ACCOUNT_CREATED(event) { /* ... */ },
     MONEY_SENT(event) {
       const {
