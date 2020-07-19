@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&family=Overpass+Mono:wght@300;400&family=Quicksand:wght@300;500;700&family=Roboto+Slab:wght@100;300;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply m-0 p-0;
+}
+
+a {
+  @apply underline inline-flex items-center;
+}
+
+a[target="_blank"]::after {
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
+  margin: -4px 3px 0 5px;
+}
+
+p {
+  @apply font-serif;
+}
+
+kbd {
+  @apply border border-b-2 px-2 rounded bg-gray-100 border-gray-700 shadow-xs font-mono;
+}
