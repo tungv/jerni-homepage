@@ -74,21 +74,21 @@ function Installation({ useYarn, togglePackageManager }) {
         <label className="flex items-center ml-2">
           <input
             type="checkbox"
-            checked={useYarn}
-            onChange={togglePackageManager}
-          />
-          <span className="ml-2 select-none">
-            I use <code>yarn</code>
-          </span>
-        </label>
-        <label className="flex items-center ml-2">
-          <input
-            type="checkbox"
             checked={!useYarn}
             onChange={togglePackageManager}
           />
           <span className="ml-2 select-none">
             I use <code>npm</code>
+          </span>
+        </label>
+        <label className="flex items-center ml-2">
+          <input
+            type="checkbox"
+            checked={useYarn}
+            onChange={togglePackageManager}
+          />
+          <span className="ml-2 select-none">
+            I use <code>yarn</code>
           </span>
         </label>
       </header>
