@@ -380,7 +380,7 @@ initialize().then((journey) => {
   app.post("/api/accounts", express.json(), (req, res) => { /* ... */ });
   
   app.listen(port, () =>
-  console.log(\`Example app listening at http://localhost:$\{port}\`),
+    console.log(\`Example app listening at http://localhost:$\{port}\`),
   );
 });
 `}
