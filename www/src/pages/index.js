@@ -367,8 +367,8 @@ export default function JerniHomePage() {
           <a href="https://npm.im/@jerni/store-mongo" target="_blank">
             a MongoDB store
           </a>{" "}
-          for projections. However, we are actively develop other adapters like
-          PostgreSQL for events store and a projection store with{" "}
+          for projections. However, we are actively developing other adapters
+          like PostgreSQL for events store and a projection for{" "}
           <a href="https://neo4j.com/" target="_blank">
             Neo4J Graph Database
           </a>
@@ -376,10 +376,10 @@ export default function JerniHomePage() {
         </p>
 
         <p className="max-w-4xl m-auto text-xl font-serif p-2">
-          <code>jerni</code> is built around open protocol based on the standard
-          HTTP. So support for languagues other than JavaScript is possible. We
-          want to keep the API surface compact so new clients/adapters
-          integration would be simplified.
+          <code>jerni</code> is built around an open protocol based on the
+          standard HTTP. That makes supports for languagues other than
+          JavaScript is possible. We want to keep the API surface compact so new
+          clients/adapters integration would be simple.
         </p>
       </section>
     </HomeLayout>
