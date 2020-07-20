@@ -129,7 +129,7 @@ ${useYarn ? `yarn init -y` : `npm init -y`}`}
       </div>
 
       <p>
-        To verify if you have install the packages correctly, open your{" "}
+        To verify if you have installed the packages correctly, open your{" "}
         <code>package.json</code> file, and you should be able to find this
         snippet (the actual versions may vary).
       </p>
@@ -345,6 +345,17 @@ jerni-dev>`}
       <p>
         You can use <kbd>Ctrl-C</kbd> to terminate this process
       </p>
+
+      <div className="p-4 border-l-4 border-green-500 bg-green-100 grid grid-cols-1 gap-4">
+        <p>
+          <b>Note:</b> for the purpose of this tutorial, we don't need to worry
+          about the value of <code>EVENTS_QUEUE_URL</code> because{" "}
+          <code>jerni-dev</code> will handle the events queue for us. It will
+          store committed events in a human-readable file (default to{" "}
+          <code>jerni.db</code>) and automatically inject the server address
+          into your application.
+        </p>
+      </div>
     </section>
   );
 }
