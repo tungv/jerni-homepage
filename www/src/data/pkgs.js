@@ -30,6 +30,7 @@ const pkgs = [
           params: [
             {
               type: "Record",
+              name: "handlersMap",
               record: {
                 key: { type: "string", name: "eventName" },
                 value: {
@@ -45,6 +46,13 @@ const pkgs = [
               },
             },
           ],
+          returns: {
+            type: "function",
+            fn: {
+              params: [{ type: "UncommittedEvent" }],
+              returns: { type: ["Operation"] },
+            },
+          },
         },
         examples: [
           `const transform = mapEvents({
