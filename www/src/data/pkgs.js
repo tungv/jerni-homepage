@@ -46,6 +46,30 @@ const pkgs = [
             },
           ],
         },
+        examples: [
+          `const transform = mapEvents({
+  USER_REGISTERED(event) {
+    return {
+      insertOne: {
+        id: event.payload.id,
+        username: event.payload.username,
+        createdAt: event.payload.registered_timstamp,
+        active: true,
+      },
+    };
+  }
+  USER_SUSPENDED(event) {
+    return {
+      updateOne: {
+        where: { id: event.payload.user_id },
+        changes: {
+          $set: { active: false },
+        },
+      },
+    };
+  },
+});`,
+        ],
       },
     ],
     types: [

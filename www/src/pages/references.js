@@ -48,15 +48,12 @@ const ${exp.referredName} = require("${pkgName}${exp.path}");`}
                 </div>
                 <Link
                   href={{
-                    pathname: exp.path
-                      ? "/references/api/[pkg]/[exp]"
-                      : "/references/api/[pkg]/",
+                    pathname: "/references/api/[...exp]",
                     query: {
-                      pkg: pkgName,
-                      exp: exp.path,
+                      exp: [pkgName, exp.path].join(""),
                     },
                   }}
-                  as={`/references/api/${pkgName}${exp.path || "/"}`}
+                  as={`/references/api/${[pkgName, exp.path].join("")}`}
                 >
                   <a className="no-underline bg-teal-500 text-white absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center">
                     <IconBook10 />
