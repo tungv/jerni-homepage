@@ -12,9 +12,9 @@ export default function ExportDetailPage(props) {
   return <APIDetail pkg={pkg} exp={exp}></APIDetail>;
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const {
-    query: { exp: fullPath },
+    params: { exp: fullPath },
   } = context;
 
   const pkg = pkgs.find((pkg) =>
@@ -29,5 +29,18 @@ export async function getServerSideProps(context) {
       pkgName: pkg.pkgName,
       expPath: exp.path,
     }, // will be passed to the page component as props
+  };
+}
+
+export async function getStaticPaths() {
+  const paths = pkgs.flatMap((pkg) =>
+    pkg.exports.map((exp) =>
+      [pkg.pkgName, ...exp.path.split("/")].filter((x) => x),
+    ),
+  );
+
+  return {
+    paths: paths.map((exp) => ({ params: { exp } })),
+    fallback: false,
   };
 }
