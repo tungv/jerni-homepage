@@ -171,7 +171,184 @@ export default function JerniHomePage() {
           that you are working on.
         </p>
 
-        <div>{/* add screenshots here */}</div>
+        <div className="grid grid-cols-1 max-w-6xl  items-start gap-4 mt-2 mx-auto">
+          <style jsx>{`
+            @media all and (min-width: 1680px) {
+              .grid {
+                max-width: 2000px;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+              }
+            }
+          `}</style>
+          <div>
+            <h3 className="text-xl text-center">Helpful Error Message</h3>
+            <CodeFile language="text">
+              <span>journey is ready!</span>
+              <span>Example app listening at http://localhost:3000</span>
+              <span>
+                <span className="rounded bg-red-700 text-white text-bold">
+                  {" "}
+                  jerni-dev{" "}
+                </span>{" "}
+                invalid jerni server provided, received: .
+              </span>
+              <br></br>
+              <span>
+                {"  "}
+                <span className="text-gray-500">1)</span> if you're in{" "}
+                <span className="text-green-500 text-bold">development</span>{" "}
+                mode, make sure you ran jerni-dev.
+              </span>
+              <span>
+                {"  "}
+                <span className="text-gray-500">2)</span> if you're in{" "}
+                <span className="text-green-500 text-bold">production</span>{" "}
+                mode, please set{" "}
+                <span className="text-bold text-white">
+                  NODE_ENV=production
+                </span>{" "}
+                before starting your app
+              </span>
+            </CodeFile>
+          </div>
+          <div>
+            <h3 className="text-xl text-center">Detailed Event logging</h3>
+            <CodeFile language="text">
+              <span>
+                <span className="text-white bg-green-700 rounded">
+                  {" "}
+                  jerni-dev{" "}
+                </span>{" "}
+                running in development mode
+              </span>
+              <br />
+              <span>versions:</span>
+              <span>
+                {"  "}jerni:{"     "}
+                <span className="text-white text-bold">1.0.0</span>
+              </span>
+              <span>
+                {"  "}jerni-dev:{" "}
+                <span className="text-white text-bold">1.0.0</span>
+              </span>
+              <br />
+              <span>heq-server:</span>
+              <span>
+                {"  "}original URL:{" "}
+                <span className="italic text-gray-500">undefined</span> (not
+                used in development mode)
+              </span>
+              <span>
+                {"  "}dev server URL:{" "}
+                <span className="itatic text-green-500 underline">
+                  http://localhost:6181
+                </span>
+              </span>
+              <br />
+              <span>stores:</span>
+              <span>
+                {"  "}-{" "}
+                <span className="itatic text-green-500 underline">
+                  mongodb://localhost:27017
+                </span>
+              </span>
+              <br />
+              <br />
+              <span>
+                <span className="text-white bg-green-700 rounded">
+                  {" "}
+                  jerni-dev{" "}
+                </span>{" "}
+                event{" "}
+                <span className="text-white text-bold">
+                  #1 [type=ACCOUNT_CREATED]
+                </span>{" "}
+                has been committed to dev server at{" "}
+                <span className="itatic text-green-500 underline">
+                  http://localhost:6181
+                </span>
+              </span>
+            </CodeFile>
+          </div>
+          <div>
+            <h3 className="text-xl text-center">Intelligent File Watcher</h3>
+            <CodeFile language="text">
+              <span>
+                [ cli ] <span className="text-green-500">info</span>: heq-server
+                is listening on port 6181
+              </span>
+              <span>
+                [ cli ] <span className="text-green-500">info</span>: writing
+                lockfile to .jerni-dev
+              </span>
+              <span>
+                [ cli ] <span className="text-green-500">info</span>: clean
+                start new journey
+              </span>
+              <span>
+                [ cli ] <span className="text-green-500">info</span>: worker
+                ready
+              </span>
+              <span>
+                [jerni] <span className="text-green-500">info</span>: start
+                receiving data
+              </span>
+              <span>
+                [jerni] <span className="text-green-500">info</span>:{" "}
+                {`[ { accounts_v1: { added: 1 } } ]`}
+              </span>
+              <br />
+              <span>
+                [ cli ] <span className="text-yellow-500">warn</span>:
+                non-organic change detected!
+              </span>
+              <span>
+                [ cli ] <span className="text-green-500">info</span>: stop
+                watching data file
+              </span>
+              <span>
+                [ cli ] <span className="text-green-500">info</span>: jerni
+                subprocess stopped!
+              </span>
+              <span>
+                [ cli ] <span className="text-green-500">info</span>: stopped
+                watching journey source code!
+              </span>
+              <span>
+                [ cli ] <span className="text-green-500">info</span>: heq-server
+                subprocess stopped!
+              </span>
+              <span>
+                [ cli ] <span className="text-green-500">info</span>: lockfile
+                .jerni-dev removed!
+              </span>
+              <span>
+                [ cli ] <span className="text-green-500">info</span>: heq-server
+                is listening on port 6181
+              </span>
+              <span>
+                [ cli ] <span className="text-green-500">info</span>: writing
+                lockfile to .jerni-dev
+              </span>
+              <span>
+                [ cli ] <span className="text-green-500">info</span>: clean
+                start new journey
+              </span>
+              <span>
+                [ cli ] <span className="text-green-500">info</span>: worker
+                ready
+              </span>
+              <span>
+                [jerni] <span className="text-green-500">info</span>: start
+                receiving data
+              </span>
+              <span>
+                [jerni] <span className="text-green-500">info</span>:{" "}
+                {`[ { accounts_v1: { added: 2 } } ]`}
+              </span>
+            </CodeFile>
+          </div>
+        </div>
       </section>
 
       <section className="my-6 relative">
@@ -190,8 +367,8 @@ export default function JerniHomePage() {
           <a href="https://npm.im/@jerni/store-mongo" target="_blank">
             a MongoDB store
           </a>{" "}
-          for projections. However, we are actively develop other adapters like
-          PostgreSQL for events store and a projection store with{" "}
+          for projections. However, we are actively developing other adapters
+          like PostgreSQL for events store and a projection for{" "}
           <a href="https://neo4j.com/" target="_blank">
             Neo4J Graph Database
           </a>
@@ -199,10 +376,10 @@ export default function JerniHomePage() {
         </p>
 
         <p className="max-w-4xl m-auto text-xl font-serif p-2">
-          <code>jerni</code> is built around open protocol based on the standard
-          HTTP. So support for languagues other than JavaScript is possible. We
-          want to keep the API surface compact so new clients/adapters
-          integration would be simplified.
+          <code>jerni</code> is built around an open protocol based on the
+          standard HTTP. That makes supports for languagues other than
+          JavaScript is possible. We want to keep the API surface compact so new
+          clients/adapters integration would be simple.
         </p>
       </section>
     </HomeLayout>

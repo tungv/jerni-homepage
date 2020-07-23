@@ -35,7 +35,7 @@ export default function HomeLayout({
             </Link>
           </li>
           <li>
-            <Link href="/Blogs">
+            <Link href="/blog">
               <a>Blogs</a>
             </Link>
           </li>
