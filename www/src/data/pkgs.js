@@ -79,6 +79,25 @@ const pkgs = [
 });`,
         ],
       },
+      {
+        path: "/skip",
+        referredName: "SKIP",
+        type: "SkipSymbol",
+        description:
+          "SKIP symbol to explicitly ignore an exception during projection stage",
+        examples: [
+          `const journey = createJourney({
+  writeTo: 'http://some-server.com',
+  stores: [/* ... */],
+  async onError(err, event) {
+    // we don't need to handle error for this event because …
+    if (event.type === "SOME_EVENT") {
+      return SKIP;
+    }
+  }
+});`,
+        ],
+      },
     ],
     types: [
       {
@@ -102,6 +121,75 @@ const pkgs = [
             description: "List of all destinations of this journey",
             examples: [{ ref: ["@jerni/store-mongo", "MongoStore"] }],
           },
+          {
+            name: "onError",
+            type: "function",
+            fn: {
+              async: true,
+              params: [
+                {
+                  name: "error",
+                  type: "Error",
+                },
+                {
+                  name: "event",
+                  type: "CommittedEvent",
+                },
+              ],
+              returns: {
+                type: {
+                  union: ["SkipSymbol", "void"],
+                },
+              },
+            },
+            description:
+              "this callback is triggered on every uncaught exception thrown in projection stage. To ignore an error, you need to explicitly return jerni/skip symbol",
+            examples: [
+              {
+                lanugage: "js",
+                fileName: "log-error-sentry.js",
+                code: `
+const journey = createJourney({
+  writeTo: 'http://some-server.com',
+  stores: [/* ... */],
+  async onError(err, event) {
+    if (SENTRY_DSN) {
+      Sentry.withScope((scope) => {
+        scope.setLevel('fatal');
+        scope.setFingerprint(['{{ default }}', 'journey']);
+        scope.setExtra('offendingEvent', event);
+
+        if (err.name === 'JerniStoreMongoWriteError') {
+          scope.setExtra('mongo_code', err.code);
+          scope.setExtra('mongo_op', JSON.stringify(err.op));
+          scope.setExtra('model', err.model);
+        }
+
+        Sentry.captureException(err);
+      });
+
+      await Sentry.flush(5000);
+    }
+  }
+});`,
+              },
+              {
+                lanugage: "js",
+                fileName: "skip-error.js",
+                code: `
+const journey = createJourney({
+  writeTo: 'http://some-server.com',
+  stores: [/* ... */],
+  async onError(err, event) {
+    // we don't need to handle error for this event because …
+    if (event.type === "SOME_EVENT") {
+      return require('jerni/skip');
+    }
+  }
+});`,
+              },
+            ],
+          },
         ],
       },
       {
@@ -112,7 +200,7 @@ const pkgs = [
             name: "commit",
             type: "function",
             description:
-              "commit an event to events queue and return that committed event after it's fully persisted",
+              "commits an event to the Events Queue and returns that committed event after it's fully committed",
             fn: {
               async: true,
               params: [
@@ -125,6 +213,98 @@ const pkgs = [
                 type: "CommittedEvent",
               },
             },
+            examples: [
+              {
+                language: "js",
+                fileName: "example.js",
+                code: `
+// t-0: start committing              
+const event = await journey.commit({
+  type: "EVENT_1",
+  payload: {
+    key: "value",
+  },
+});
+
+console.log(event)
+              `,
+                result: `{
+  id: 10001,
+  type: "EVENT_1",
+  payload: {
+    key: "value"
+  },
+  meta: {
+    /* custom meta data injected by \`jerni\` */
+  }
+}`,
+              },
+            ],
+          },
+          {
+            name: "waitFor",
+            type: "function",
+            description:
+              "waits for an event to be fully persisted to all stores of this journey",
+            fn: {
+              async: true,
+              params: [
+                {
+                  name: "eventShape",
+                  type: "CommittedEvent",
+                },
+              ],
+              returns: {
+                type: "void",
+              },
+            },
+            examples: [
+              {
+                language: "js",
+                fileName: "example.js",
+                code: `
+// t-0: start committing              
+const event = await journey.commit({ /* ... */ });
+// t-1: event has been written to Events Queue, but hasn't been projected to any store
+await journey.waitFor(event)
+// t-2: event has been fully projected to all stores
+              `,
+              },
+            ],
+          },
+          {
+            name: "getReader",
+            type: "function",
+            description:
+              "return a read-only native data querying object depending on the underlaying store",
+            fn: {
+              async: true,
+              params: [
+                {
+                  name: "model",
+                  type: "DataModel",
+                  optional: true,
+                },
+              ],
+              returns: {
+                type: "Reader",
+              },
+            },
+            examples: [
+              {
+                language: "js",
+                fileName: "example.js",
+                code: `
+const { Model } = require('@jerni/store-mongo');
+const users = new Model({ /*...*/ });
+
+/* ... */
+
+const UserCollection = await journey.getReader(users);
+const someUser = await UserCollection.findOne({ id: '123' });
+              `,
+              },
+            ],
           },
         ],
       },
