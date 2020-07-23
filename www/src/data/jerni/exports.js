@@ -84,14 +84,14 @@ export default [
       "SKIP symbol to explicitly ignore an exception during projection stage",
     examples: [
       `const journey = createJourney({
-writeTo: 'http://some-server.com',
-stores: [/* ... */],
-async onError(err, event) {
-// we don't need to handle error for this event because …
-if (event.type === "SOME_EVENT") {
-  return SKIP;
-}
-}
+  writeTo: 'http://some-server.com',
+  stores: [/* ... */],
+  async onError(err, event) {
+    // we don't need to handle error for this event because …
+    if (event.type === "SOME_EVENT") {
+      return SKIP;
+    }
+  }
 });`,
     ],
   },

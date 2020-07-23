@@ -3,7 +3,15 @@ import Link from "next/link";
 import ContextCurrentPackage from "../ContextCurrentPackage";
 import linkToType from "../linkToTypes";
 
-const PRIMITIVES = ["string", "number", "Function", "Object", "void", "Error"];
+const PRIMITIVES = [
+  "string",
+  "number",
+  "Function",
+  "Object",
+  "void",
+  "Error",
+  "Symbol",
+];
 
 export default function DataType(props) {
   const pkg = useContext(ContextCurrentPackage);

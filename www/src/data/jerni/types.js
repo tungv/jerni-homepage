@@ -413,6 +413,13 @@ const CommittedEvent = {
   ],
 };
 
+const SkipSymbol = {
+  name: "SkipSymbol",
+  extends: "Symbol",
+  description:
+    "Special symbol to explicitly ignore an uncaughtException during projection stage",
+};
+
 const jerniTypes = [
   JourneyConfig,
   Journey,
@@ -423,6 +430,7 @@ const jerniTypes = [
   DataModel,
   NativeReadOnlyDriver,
   Operation,
+  SkipSymbol,
 ];
 
 export default jerniTypes;
