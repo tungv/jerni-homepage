@@ -10,12 +10,12 @@ import getTypeProperties from "../getTypeProperties";
 export default function TypeDetail(props) {
   const { pkg, type } = props;
 
+  const ownProps = type.properties || [];
+
   const inherits = Array.isArray(type.extends)
     ? getTypeProperties(...type.extends)
         .map((t) => ({ ...t, from: type.extends }))
-        .filter((t) =>
-          type.properties.some((ownProp) => ownProp.name !== t.name),
-        )
+        .filter((t) => !ownProps.some((ownProp) => ownProp.name === t.name))
     : [];
 
   return (
@@ -65,16 +65,8 @@ export default function TypeDetail(props) {
           <header>
             <h4 className="font-bold text-lg">Properties</h4>
           </header>
-          {inherits.map((prop) => (
+          {ownProps.map((prop) => (
             <section key={prop.name} className="border rounded shadow m-2">
-              <div className="px-4 text-sm bg-teal-500 text-white">
-                inherited from{" "}
-                <Link {...linkToType(...type.extends)}>
-                  <a className="font-mono text-white">
-                    {type.extends.join("::")}
-                  </a>
-                </Link>
-              </div>
               <header className="bg-gray-200 px-4 py-2">
                 <div className="flex flex-row items-center flex-wrap">
                   <h5 className="font-bold">{prop.name}</h5>
@@ -95,9 +87,16 @@ export default function TypeDetail(props) {
               )}
             </section>
           ))}
-
-          {type.properties.map((prop) => (
+          {inherits.map((prop) => (
             <section key={prop.name} className="border rounded shadow m-2">
+              <div className="px-4 text-sm bg-teal-500 text-white">
+                inherited from{" "}
+                <Link {...linkToType(...type.extends)}>
+                  <a className="font-mono text-white">
+                    {type.extends.join("::")}
+                  </a>
+                </Link>
+              </div>
               <header className="bg-gray-200 px-4 py-2">
                 <div className="flex flex-row items-center flex-wrap">
                   <h5 className="font-bold">{prop.name}</h5>
