@@ -23,6 +23,19 @@ export default function APIDetail(props) {
       </header>
 
       {exp.type === "function" && <FunctionSummary {...exp}></FunctionSummary>}
+      {exp.type !== "function" && (
+        <div>
+          <header>
+            <h3 className="text-2xl">Summary</h3>
+            <p>
+              type:{" "}
+              <code>
+                <DataType type={exp.type}></DataType>
+              </code>
+            </p>
+          </header>
+        </div>
+      )}
 
       <section className="max-w-6xl">
         <h3 className="text-2xl">Usages</h3>
