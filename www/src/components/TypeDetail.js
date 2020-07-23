@@ -55,7 +55,7 @@ export default function TypeDetail(props) {
               </header>
 
               {prop.examples && (
-                <div className="p-4">
+                <div className="p-4 grid grid-cols-1 gap-4">
                   <header>
                     <h6 className="font-bold">Examples</h6>
                   </header>

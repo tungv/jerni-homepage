@@ -24,7 +24,7 @@ export default function APIDetail(props) {
 
       {exp.type === "function" && <FunctionSummary {...exp}></FunctionSummary>}
 
-      <section>
+      <section className="max-w-6xl">
         <h3 className="text-2xl">Usages</h3>
         <div>
           <CodeFile language="js">

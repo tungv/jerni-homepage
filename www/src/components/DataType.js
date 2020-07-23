@@ -34,15 +34,18 @@ export default function DataType(props) {
     return (
       <abbr title={`function\n${props.description}`}>
         (
-        {props.fn.params.map((p, index) =>
-          p.optional ? (
-            <abbr key={index} title="optional">
-              [<DataType {...p} />]
-            </abbr>
-          ) : (
-            <DataType key={index} {...p} />
-          ),
-        )}
+        {props.fn.params.map((p, index, { length }) => (
+          <Fragment key={index}>
+            {p.optional ? (
+              <abbr title="optional">
+                [<DataType {...p} />]
+              </abbr>
+            ) : (
+              <DataType {...p} />
+            )}
+            {index !== length - 1 && ", "}
+          </Fragment>
+        ))}
         )&nbsp;=>&nbsp;
         {props.fn.async && <span>Promise&lt;</span>}
         <DataType {...props.fn.returns} />
