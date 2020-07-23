@@ -84,6 +84,7 @@ const pkgs = [
       {
         name: "JourneyConfig",
         extends: "Object",
+        description: "Describe a journey configuration",
         properties: [
           {
             type: "string",
@@ -96,8 +97,8 @@ const pkgs = [
             ],
           },
           {
-            type: "stores",
-            extends: ["Store"],
+            name: "stores",
+            type: ["Store"],
             description: "List of all destinations of this journey",
             examples: [{ ref: ["@jerni/store-mongo", "MongoStore"] }],
           },
@@ -106,12 +107,12 @@ const pkgs = [
       {
         name: "Journey",
         extends: "Object",
-        description:
-          "commit an event to events queue and return that committed event after it's fully persisted",
         properties: [
           {
             name: "commit",
             type: "function",
+            description:
+              "commit an event to events queue and return that committed event after it's fully persisted",
             fn: {
               async: true,
               params: [

@@ -68,7 +68,19 @@ const ${exp.referredName} = require("${pkgName}${exp.path}");`}
         <ul>
           {types.map((type) => (
             <li key={type.name} className="">
-              <h5 className="p-2">{type.name}</h5>
+              <Link
+                href={{
+                  pathname: "/references/types/[...ns]",
+                  query: {
+                    ns: [pkgName, type.name].join(""),
+                  },
+                }}
+                as={`/references/types/${[pkgName, type.name].join("/")}`}
+              >
+                <a href="">
+                  <h5 className="p-2">{type.name}</h5>
+                </a>
+              </Link>
             </li>
           ))}
         </ul>

@@ -1,7 +1,8 @@
-import pkgs from "../data/pkgs";
-import HomeLayout from "./HomeLayout";
+import React from "react";
+
 import CodeFile from "./CodeFile";
-import { Fragment } from "react";
+import DataType from "./DataType";
+import HomeLayout from "./HomeLayout";
 
 export default function APIDetail(props) {
   const { pkg, exp } = props;
@@ -11,9 +12,9 @@ export default function APIDetail(props) {
       title={`jerni - API References - Module: ${pkg.pkgName}${exp.path}`}
     >
       <header>
-        <h2>
+        <h2 className="text-2xl">
           module:{" "}
-          <code>
+          <code className="text-blue-500">
             {pkg.pkgName}
             <b>{exp.path}</b>
           </code>
@@ -95,48 +96,5 @@ function FunctionSummary(props) {
         </section>
       )}
     </section>
-  );
-}
-
-function DataType(props) {
-  if (props.type.union) {
-    return props.type.union.map((type, index, array) => (
-      <Fragment>
-        <DataType type={type} />
-        {index !== array.length - 1 && "|"}
-      </Fragment>
-    ));
-  }
-  if (props.type === "Record") {
-    return (
-      <abbr>
-        Record&lt;
-        <i>{props.record.key.name}</i>:{props.record.key.type},
-        <i>{props.record.value.name}</i>:<DataType {...props.record.value} />
-        &gt;
-      </abbr>
-    );
-  }
-
-  if (props.type === "function") {
-    return (
-      <abbr title={`function\n${props.description}`}>
-        ({props.fn.params.map((p) => p.type)}) =>{" "}
-        <DataType {...props.fn.returns} />
-      </abbr>
-    );
-  }
-
-  if (Array.isArray(props.type) && props.type.length === 1) {
-    return (
-      <Fragment>
-        <DataType type={props.type[0]} />
-        []
-      </Fragment>
-    );
-  }
-
-  return (
-    <abbr title={`Custom Type: ${props.type}`}>{props.type || "unknown"}</abbr>
   );
 }

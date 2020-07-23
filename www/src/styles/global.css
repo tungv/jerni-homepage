@@ -9,7 +9,7 @@ body {
 }
 
 a {
-  @apply underline inline-flex items-center;
+  @apply underline text-teal-500;
 }
 
 a[target="_blank"]::after {
