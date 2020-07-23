@@ -1,6 +1,7 @@
 import React, { Fragment, useContext } from "react";
 import Link from "next/link";
 import ContextCurrentPackage from "../ContextCurrentPackage";
+import linkToType from "../linkToTypes";
 
 const PRIMITIVES = ["string", "number", "Function", "Object", "void", "Error"];
 
@@ -81,13 +82,7 @@ export default function DataType(props) {
   }
 
   return (
-    <Link
-      href={{
-        pathname: "/references/types/[...ns]",
-        query: { ns: [pkg.pkgName, props.type].join("/") },
-      }}
-      as={`/references/types/${[pkg.pkgName, props.type].join("/")}`}
-    >
+    <Link {...linkToType(pkg.pkgName, props.type)}>
       <a>{props.type}</a>
     </Link>
   );
