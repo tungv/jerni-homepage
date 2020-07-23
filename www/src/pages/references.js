@@ -26,64 +26,66 @@ function Package(props) {
   const { pkgName, exports, types } = props;
 
   return (
-    <div className="border rounded shadow-sm p-2">
-      <header>
-        <h3 className="text-2xl">
-          <code>{pkgName}</code>
-        </h3>
+    <div className="border rounded-lg shadow-sm overflow-hidden">
+      <header className="py-2 px-4 bg-teal-500 text-white">
+        <h3 className="text-2xl font-mono">{pkgName}</h3>
       </header>
 
-      <nav>
-        <h4 className="text-lg m-2">Exports</h4>
-        <ul>
-          {exports.map((exp) => (
-            <li key={exp.path} className="my-2">
-              <h5 className="p-2">{exp.description}</h5>
-              <div className="flex flex-row relative rounded-lg overflow-hidden shadow-md mx-2">
-                <div className="flex-1">
-                  <CodeFile language="js">
-                    {`// ${exp.description}
+      <nav className="grid grid-cols-1 gap-4 p-2">
+        <div>
+          <h4 className="text-lg m-2">Exports</h4>
+          <ul>
+            {exports.map((exp) => (
+              <li key={exp.path} className="my-2">
+                <h5 className="p-2">{exp.description}</h5>
+                <div className="flex flex-row relative rounded-lg overflow-hidden shadow-md mx-2">
+                  <div className="flex-1">
+                    <CodeFile language="js">
+                      {`// ${exp.description}
 const ${exp.referredName} = require("${pkgName}${exp.path}");`}
-                  </CodeFile>
+                    </CodeFile>
+                  </div>
+                  <Link
+                    href={{
+                      pathname: "/references/api/[...exp]",
+                      query: {
+                        exp: [pkgName, exp.path].join(""),
+                      },
+                    }}
+                    as={`/references/api/${[pkgName, exp.path].join("")}`}
+                  >
+                    <a className="no-underline bg-teal-500 text-white absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center">
+                      <IconBook10 />
+                    </a>
+                  </Link>
                 </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="text-lg m-2">Types</h4>
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {types.map((type) => (
+              <li key={type.name} className="">
                 <Link
                   href={{
-                    pathname: "/references/api/[...exp]",
+                    pathname: "/references/types/[...ns]",
                     query: {
-                      exp: [pkgName, exp.path].join(""),
+                      ns: [pkgName, type.name].join(""),
                     },
                   }}
-                  as={`/references/api/${[pkgName, exp.path].join("")}`}
+                  as={`/references/types/${[pkgName, type.name].join("/")}`}
                 >
-                  <a className="no-underline bg-teal-500 text-white absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center">
-                    <IconBook10 />
+                  <a>
+                    <h5 className="p-2">{type.name}</h5>
                   </a>
                 </Link>
-              </div>
-            </li>
-          ))}
-        </ul>
-
-        <h4 className="text-lg m-2">Types</h4>
-        <ul>
-          {types.map((type) => (
-            <li key={type.name} className="">
-              <Link
-                href={{
-                  pathname: "/references/types/[...ns]",
-                  query: {
-                    ns: [pkgName, type.name].join(""),
-                  },
-                }}
-                as={`/references/types/${[pkgName, type.name].join("/")}`}
-              >
-                <a href="">
-                  <h5 className="p-2">{type.name}</h5>
-                </a>
-              </Link>
-            </li>
-          ))}
-        </ul>
+              </li>
+            ))}
+          </ul>
+        </div>
       </nav>
     </div>
   );

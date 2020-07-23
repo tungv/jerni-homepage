@@ -2,13 +2,13 @@ import React, { Fragment, useContext } from "react";
 import Link from "next/link";
 import ContextCurrentPackage from "../ContextCurrentPackage";
 
-const PRIMITIVES = ["string", "number", "Function", "Object", "void"];
+const PRIMITIVES = ["string", "number", "Function", "Object", "void", "Error"];
 
 export default function DataType(props) {
   const pkg = useContext(ContextCurrentPackage);
 
   if (!props.type) {
-    return <code>unknown</code>;
+    return <span>unknown</span>;
   }
 
   if (props.type.union) {
@@ -47,9 +47,18 @@ export default function DataType(props) {
           </Fragment>
         ))}
         )&nbsp;=>&nbsp;
-        {props.fn.async && <span>Promise&lt;</span>}
+        {props.fn.asyncGenerator && (
+          <span>
+            <span className="italic text-pink-500">AsyncIterable</span>&lt;
+          </span>
+        )}
+        {props.fn.async && (
+          <span>
+            <span className="italic text-pink-500">Promise</span>&lt;
+          </span>
+        )}
         <DataType {...props.fn.returns} />
-        {props.fn.async && <span>&gt;</span>}
+        {(props.fn.async || props.fn.asyncGenerator) && <span>&gt;</span>}
       </abbr>
     );
   }
@@ -64,7 +73,11 @@ export default function DataType(props) {
   }
 
   if (PRIMITIVES.includes(props.type)) {
-    return <code className="text-pink-500 italic">{props.type}</code>;
+    return <span className="text-pink-500 italic">{props.type}</span>;
+  }
+
+  if (typeof props.type !== "string") {
+    console.log(props.type);
   }
 
   return (

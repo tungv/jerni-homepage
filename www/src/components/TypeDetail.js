@@ -30,10 +30,17 @@ export default function TypeDetail(props) {
                 <DataType type={type.extends}></DataType>
               </td>
             </tr>
+
+            {type.description && (
+              <tr>
+                <td className="text-gray-500 px-2 py-1 text-right">
+                  Description:
+                </td>
+                <td className="font-serif">{type.description}</td>
+              </tr>
+            )}
           </tbody>
         </table>
-
-        {type.description}
       </header>
 
       {type.properties && (
