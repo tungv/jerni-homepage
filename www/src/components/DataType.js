@@ -73,6 +73,14 @@ export default function DataType(props) {
     );
   }
 
+  if (Array.isArray(props.type) && props.type.length === 2) {
+    return (
+      <Link {...linkToType(...props.type)}>
+        <a>{props.type[1]}</a>
+      </Link>
+    );
+  }
+
   if (PRIMITIVES.includes(props.type)) {
     return <span className="text-pink-500 italic">{props.type}</span>;
   }
