@@ -5,6 +5,7 @@ import Link from "next/link";
 import pkgs from "../data/pkgs";
 import CodeFile from "../components/CodeFile";
 import IconBook10 from "../icons/Book10";
+import linkToType from "../linkToTypes";
 
 export default function ReferencesPage() {
   return (
@@ -72,15 +73,7 @@ const ${exp.referredName} = require("${pkgName}${exp.path}");`}
           <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {types.map((type) => (
               <li key={type.name} className="">
-                <Link
-                  href={{
-                    pathname: "/references/types/[...ns]",
-                    query: {
-                      ns: [pkgName, type.name].join(""),
-                    },
-                  }}
-                  as={`/references/types/${[pkgName, type.name].join("/")}`}
-                >
+                <Link {...linkToType(pkgName, type.name)}>
                   <a>
                     <h5 className="p-2">{type.name}</h5>
                   </a>
