@@ -18,6 +18,46 @@ const MongoDbStoreConfig = {
   ],
 };
 
+const MongoDbStore = {
+  name: "MongoDbStore",
+  extends: ["jerni", "Store"],
+  properties: [
+    {
+      name: "getDriver",
+      type: "function",
+      description:
+        "internal use: returns a read-only version of native mongodb collection object",
+      fn: {
+        async: true,
+        params: [
+          {
+            name: "Model",
+            type: "MongoDbReadOnlyModel",
+            optional: true,
+          },
+        ],
+        returns: { type: "MongoDbReadOnlyCollection" },
+      },
+    },
+    {
+      name: "handleEvents",
+      type: "function",
+      description:
+        "projects a batch of events into a batch of mongodb write operations, and idempotently apply those operations",
+      fn: {
+        async: true,
+        params: [
+          {
+            name: "events",
+            type: ["CommittedEvent"],
+          },
+        ],
+        returns: { type: ["MongoDbOperation"] },
+      },
+    },
+  ],
+};
+
 const MongoDBReadModel = {
   name: "MongoDBReadModel",
   extends: ["jerni", "DataModel"],
@@ -32,7 +72,7 @@ const MongoDBReadModel = {
         params: [
           {
             name: "events",
-            type: ["UncommittedEvent"],
+            type: ["jerni", "UncommittedEvent"],
           },
         ],
         returns: { type: ["MongoDbOperation"] },
@@ -46,6 +86,17 @@ const MongoDbOperation = {
   extends: "Object",
 };
 
-const jerniTypes = [MongoDbStoreConfig, MongoDBReadModel, MongoDbOperation];
+const MongoDbReadOnlyCollection = {
+  name: "MongoDbReadOnlyCollection",
+  extends: "Object",
+};
 
-export default jerniTypes;
+const storeMongoTypes = [
+  MongoDbStoreConfig,
+  MongoDbStore,
+  MongoDBReadModel,
+  MongoDbOperation,
+  MongoDbReadOnlyCollection,
+];
+
+export default storeMongoTypes;

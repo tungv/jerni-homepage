@@ -45,9 +45,9 @@ export default [
           description: "MongoDB Store specific configuration",
         },
       ],
-      returns: { type: "MongoDBStore" },
+      returns: { type: "MongoDbStore" },
     },
-    description: "create a MongoDBStore instance from given configuration",
+    description: "create a MongoDbStore instance from given configuration",
     examples: [
       `await makeMongoDbStore({
   name: 'MyServices',
