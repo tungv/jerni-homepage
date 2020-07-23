@@ -13,7 +13,7 @@ export default function ReferencesPage() {
         <h2 className="text-3xl">API References</h2>
       </section>
 
-      <section className="w-full max-w-4xl m-auto p-2 grid grid-cols-1">
+      <section className="w-full max-w-4xl m-auto p-2 grid grid-cols-1 gap-4">
         {pkgs.map((pkg) => (
           <Package {...pkg} key={pkg.pkgName} />
         ))}
@@ -49,10 +49,13 @@ const ${exp.referredName} = require("${pkgName}${exp.path}");`}
                     href={{
                       pathname: "/references/api/[...exp]",
                       query: {
-                        exp: [pkgName, exp.path].join(""),
+                        exp: [pkgName.replace("@", "~"), exp.path].join(""),
                       },
                     }}
-                    as={`/references/api/${[pkgName, exp.path].join("")}`}
+                    as={`/references/api/${[
+                      pkgName.replace("@", "~"),
+                      exp.path,
+                    ].join("")}`}
                   >
                     <a className="no-underline bg-teal-500 text-white absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center">
                       <IconBook10 />

@@ -18,9 +18,13 @@ export default function ExportDetailPage(props) {
 }
 
 export async function getStaticProps(context) {
-  const {
+  let {
     params: { exp: fullPath },
   } = context;
+
+  if (fullPath[0][0] === REPLACEMENT) {
+    fullPath[0] = fullPath[0].replace(REPLACEMENT, AT_SIGN);
+  }
 
   const pkg = pkgs.find((pkg) =>
     pkg.exports.some((exp) => pkg.pkgName + exp.path === fullPath.join("/")),
@@ -40,7 +44,10 @@ export async function getStaticProps(context) {
 export async function getStaticPaths() {
   const paths = pkgs.flatMap((pkg) =>
     pkg.exports.map((exp) =>
-      [...pkg.pkgName.split("/"), ...exp.path.split("/")].filter((x) => x),
+      [
+        ...pkg.pkgName.replace(AT_SIGN, REPLACEMENT).split("/"),
+        ...exp.path.split("/"),
+      ].filter((x) => x),
     ),
   );
 
@@ -49,3 +56,6 @@ export async function getStaticPaths() {
     fallback: false,
   };
 }
+
+const REPLACEMENT = "~";
+const AT_SIGN = "@";
