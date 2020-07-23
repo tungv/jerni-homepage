@@ -38,7 +38,9 @@ export default function DataType(props) {
           <DataType key={index} {...p} />
         ))}
         )&nbsp;=>&nbsp;
+        {props.fn.async && <span>Promise&lt;</span>}
         <DataType {...props.fn.returns} />
+        {props.fn.async && <span>&gt;</span>}
       </abbr>
     );
   }
