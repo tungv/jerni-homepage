@@ -2,7 +2,7 @@ import React, { Fragment, useContext } from "react";
 import Link from "next/link";
 import ContextCurrentPackage from "../ContextCurrentPackage";
 
-const PRIMITIVES = ["string", "number", "Function", "Object"];
+const PRIMITIVES = ["string", "number", "Function", "Object", "void"];
 
 export default function DataType(props) {
   const pkg = useContext(ContextCurrentPackage);
@@ -34,9 +34,15 @@ export default function DataType(props) {
     return (
       <abbr title={`function\n${props.description}`}>
         (
-        {props.fn.params.map((p, index) => (
-          <DataType key={index} {...p} />
-        ))}
+        {props.fn.params.map((p, index) =>
+          p.optional ? (
+            <abbr key={index} title="optional">
+              [<DataType {...p} />]
+            </abbr>
+          ) : (
+            <DataType key={index} {...p} />
+          ),
+        )}
         )&nbsp;=>&nbsp;
         {props.fn.async && <span>Promise&lt;</span>}
         <DataType {...props.fn.returns} />

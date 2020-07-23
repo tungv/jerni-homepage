@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import CodeFile from "./CodeFile";
 import DataType from "./DataType";
@@ -37,68 +37,59 @@ export default function TypeDetail(props) {
       </header>
 
       {type.properties && (
-        <section className="p-2">
+        <section className="p-2 grid grid-cols-1 gap-4 max-w-6xl">
           <header>
             <h4 className="font-bold text-lg">Properties</h4>
           </header>
-          <div className="mx-4 my-2">
-            <table className="table-auto">
-              <thead>
-                <tr>
-                  <th className="bg-gray-700 text-white border p-1">Name</th>
-                  <th className="bg-gray-700 text-white border p-1">Type</th>
-                  <th className="bg-gray-700 text-white border p-1">
-                    Description
-                  </th>
-                  <th className="bg-gray-700 text-white border p-1">
-                    Examples
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {type.properties.map((prop) => (
-                  <tr key={prop.name}>
-                    <td className="border px-4 py-2">{prop.name}</td>
-                    <td className="border px-4 py-2 font-mono">
-                      <DataType {...prop}></DataType>
-                    </td>
-                    <td className="border px-4 py-2 font-serif">
-                      {prop.description || <em>--</em>}
-                    </td>
-                    <td className="border px-4 py-2 font-serif">
-                      {!prop.examples && <em>--</em>}
-                      {prop.examples &&
-                        prop.examples.map((example, index) =>
-                          example.ref ? (
-                            <span key={index}>
-                              see{" "}
-                              <Link
-                                href={{
-                                  pathname: "/references/types/[...ns]",
-                                  query: { ns: example.ref.join("/") },
-                                }}
-                                as={`/references/types/${example.ref.join(
-                                  "/",
-                                )}`}
-                              >
-                                <a>
-                                  <code>{example.ref[1]}</code>
-                                </a>
-                              </Link>{" "}
-                              from package: <code>{example.ref[0]}</code>
-                            </span>
-                          ) : (
-                            <code key={index}>
-                              <pre>{JSON.stringify(example, null, 2)}</pre>
-                            </code>
-                          ),
-                        )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+
+          {type.properties.map((prop) => (
+            <section key={prop.name} className="border rounded shadow m-2">
+              <header className="bg-gray-200 px-4 py-2">
+                <div className="flex flex-row items-center flex-wrap">
+                  <h5 className="font-bold">{prop.name}</h5>
+                  <code className="mr-4">
+                    : <DataType {...prop}></DataType>
+                  </code>
+                  <p>{prop.description || <em>--</em>}</p>
+                </div>
+              </header>
+
+              {prop.examples && (
+                <div className="p-4">
+                  <header>
+                    <h6 className="font-bold">Examples</h6>
+                  </header>
+                  {prop.examples.map((example, index) =>
+                    example.code ? (
+                      <div key={index}>
+                        <CodeFile {...example}></CodeFile>
+                      </div>
+                    ) : example.ref ? (
+                      <span key={index}>
+                        see{" "}
+                        <Link
+                          href={{
+                            pathname: "/references/types/[...ns]",
+                            query: { ns: example.ref.join("/") },
+                          }}
+                          as={`/references/types/${example.ref.join("/")}`}
+                        >
+                          <a>
+                            <code>{example.ref[1]}</code>
+                          </a>
+                        </Link>{" "}
+                        from package: <code>{example.ref[0]}</code>
+                      </span>
+                    ) : (
+                      <code key={index}>
+                        <pre>{JSON.stringify(example, null, 2)}</pre>
+                      </code>
+                    ),
+                  )}
+                </div>
+              )}
+            </section>
+          ))}
         </section>
       )}
     </HomeLayout>
