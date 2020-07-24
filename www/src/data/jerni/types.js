@@ -91,7 +91,7 @@ await journey.waitFor(event)
           },
         ],
         returns: {
-          type: "Reader",
+          type: "NativeReadOnlyDriver",
         },
       },
       examples: [

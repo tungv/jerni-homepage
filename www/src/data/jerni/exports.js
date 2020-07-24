@@ -17,6 +17,18 @@ export default [
         type: "Journey",
       },
     },
+    examples: [
+      `const journey = createJourney({
+  writeTo: "http://some-server.com",
+  stores: [
+    mongoDBStore,
+    elasticSearchStore,
+  ],
+  onError(err, event) {
+    console.error("event #%d[%s] throws %s", event.id, event.type, err.message);
+  }
+})`,
+    ],
   },
   {
     path: "/lib/mapEvents",
