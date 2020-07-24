@@ -132,7 +132,7 @@ const JourneyConfig = {
       name: "stores",
       type: ["Store"],
       description: "List of all destinations of this journey",
-      examples: [{ ref: ["@jerni/store-mongo", "MongoStore"] }],
+      examples: [{ ref: ["@jerni/store-mongo", "MongoDbStore"] }],
     },
     {
       name: "onError",
