@@ -39,6 +39,18 @@ export default function DataType(props) {
     );
   }
 
+  if (props.type === "Class") {
+    return (
+      <span>
+        <span className="text-pink-500 italic">Class</span>&lt;
+        <Link {...linkToType(pkg.pkgName, props.classOf)}>
+          <a>{props.classOf}</a>
+        </Link>
+        &gt;
+      </span>
+    );
+  }
+
   if (props.type === "function") {
     return (
       <abbr title={`function\n${props.description}`}>

@@ -30,23 +30,26 @@ export default function APIDetail(props) {
             <p>
               type:{" "}
               <code>
-                <DataType type={exp.type}></DataType>
+                <DataType {...exp}></DataType>
               </code>
             </p>
           </header>
         </div>
       )}
 
-      <section className="w-full m-auto max-w-6xl">
+      <section className="w-full m-auto max-w-6xl grid grid-cols-1 gap-4">
         <h3 className="text-2xl">Usages</h3>
-        <div>
-          <CodeFile language="js">
-            {`// ${exp.description}
+        {exp.examples &&
+          exp.examples.map((example, index) => (
+            <div key={index}>
+              <CodeFile language="js">
+                {`// ${exp.description}
 const ${exp.referredName} = require("${pkg.pkgName}${exp.path}");
 
-${exp.examples ?? "// no examples"}`}
-          </CodeFile>
-        </div>
+${example}`}
+              </CodeFile>
+            </div>
+          ))}
       </section>
     </HomeLayout>
   );
@@ -75,7 +78,10 @@ function FunctionSummary(props) {
                   <code className="mr-4">
                     : <DataType {...prop}></DataType>
                   </code>
-                  <p>{prop.description || <em>--</em>}</p>
+                  <p>
+                    {prop.optional && "(optional) "}{" "}
+                    {prop.description || <em>--</em>}
+                  </p>
                 </div>
               </header>
 

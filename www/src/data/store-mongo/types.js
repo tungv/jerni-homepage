@@ -61,6 +61,7 @@ const MongoDbStore = {
 const MongoDBReadModel = {
   name: "MongoDBReadModel",
   extends: ["jerni", "DataModel"],
+  description: "Encapsulate projection logic for a MongoDB Collection",
   properties: [
     {
       name: "transform",
@@ -81,6 +82,154 @@ const MongoDBReadModel = {
   ],
 };
 
+const StoreMongoDefaultExport = {
+  name: "StoreMongoDefaultExport",
+  extends: "Object",
+  properties: [
+    {
+      name: "makeStore",
+      type: "function",
+      fn: {
+        params: [
+          {
+            name: "config",
+            type: "MongoDbStoreConfig",
+            description: "MongoDB Store specific configuration",
+          },
+        ],
+        returns: { type: "MongoDbStore" },
+      },
+      description: "create a MongoDbStore instance from given configuration",
+      examples: [
+        {
+          fileName: "journey/my-mongo-store.js",
+          code: `
+/* ... */
+await makeMongoDbStore({
+  name: 'MyServices',
+  url: 'mongodb://localhost:27017',
+  dbName: 'my_service_dev',
+  models: [clients, profiles],
+});`,
+        },
+      ],
+    },
+    {
+      name: "Model",
+      type: "Class",
+      classOf: "MongoDBReadModel",
+      description: "Encapsulate projection logic for a MongoDB Collection",
+    },
+    {
+      name: "readPipeline",
+      type: "function",
+      fn: {
+        params: [
+          {
+            name: "model",
+            type: "MongoDBReadModel",
+            optional: true,
+          },
+          {
+            name: "pipeline",
+            type: ["PipelineOperation"],
+          },
+        ],
+        returns: {
+          type: "MongoDBAggregationResults",
+        },
+      },
+      description:
+        "Declaratively read data from a collection during projection stage",
+
+      examples: [
+        {
+          fileName: "example-count-with-condition.js",
+          code: `
+/* transform function for Profiles model */        
+function transform(event) {
+  const results = readPipeline([
+    { $match: { age: { $gte: 18 } } },
+    { $count: 'adultsCount' },
+  ]);
+  
+  // if $match doesn't find any document, next stage will receive empty stream,
+  // thus $count stage will just return empty stream as well
+  const count = result.length === 0 ? 0 : result[0].adultsCount;
+
+  // decide what to do depending on the value of count
+  if (count > 3) {
+    return [ /* ... */ ];
+  }
+
+  return [ /* ... */ ];
+}
+        `,
+        },
+        {
+          fileName: "example-lookup-different-collection.js",
+          code: `
+const ProductModel = new Model(/* ... */);
+
+const OrderModel = new Model({
+  name: "orders",
+  version: "1",
+  transform(event) {
+
+    // readPipeline can run conditionally
+    if (event.type === "ORDER_MADE") {
+      const { product_ids, order_id } = event.payload;
+
+      // readPipeline can run repetatively in a loop
+      const unitPrices = product_ids.map(id => {
+
+        // readPipeline can run agaist other models as well
+        return readPipeline(ProductModel, [
+          { $match: { id } },            // query a specific product
+          { $project: { unitPrice: 1 } } // only get its price
+        ])
+      });
+
+      // NOTE: don't do this in production, use one pipeline to map/reduce for better performance
+      const total = unitPrices.reduce((a, b) => a + b);
+
+      return [{
+        insertOne: {
+          id: order_id,
+          products: product_ids,
+          total
+        }
+      }]
+    }
+  }
+})
+
+
+/* transform function for Profiles model */        
+function transform(event) {
+  const results = readPipeline([
+    { $match: { age: { $gte: 18 } } },
+    { $count: 'adultsCount' },
+  ]);
+  
+  // if $match doesn't find any document, next stage will receive empty stream,
+  // thus $count stage will just return empty stream as well
+  const count = result.length === 0 ? 0 : result[0].adultsCount;
+
+  // decide what to do depending on the value of count
+  if (count > 3) {
+    return [ /* ... */ ];
+  }
+
+  return [ /* ... */ ];
+}
+        `,
+        },
+      ],
+    },
+  ],
+};
+
 const MongoDbOperation = {
   name: "MongoDbOperation",
   extends: "Object",
@@ -95,6 +244,7 @@ const storeMongoTypes = [
   MongoDbStoreConfig,
   MongoDbStore,
   MongoDBReadModel,
+  StoreMongoDefaultExport,
   MongoDbOperation,
   MongoDbReadOnlyCollection,
 ];
