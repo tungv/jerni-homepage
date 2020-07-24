@@ -217,7 +217,7 @@ const UncommittedEvent = {
         "Event type described using business vocabulary and in past form of a verb",
       examples: [
         "USER_SUSPENED",
-        "ACCOUNT_REGISTED",
+        "ACCOUNT_REGISTERED",
         "INTERNAL_TRANSACTION_MADE",
         "LICENSE_EXPIRED",
       ],
