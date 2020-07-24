@@ -8,7 +8,6 @@ export default function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const handleRouteChange = (url) => {
       pageview(url);
-      console.log("pageview");
     };
     Router.events.on("routeChangeComplete", handleRouteChange);
     return () => {
