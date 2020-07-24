@@ -11,7 +11,7 @@ export default function APIDetail(props) {
     <HomeLayout
       title={`jerni - API References - Module: ${pkg.pkgName}${exp.path}`}
     >
-      <header>
+      <header className="w-full m-auto max-w-6xl">
         <h2 className="text-2xl">
           module:{" "}
           <code className="text-blue-500">
@@ -24,7 +24,7 @@ export default function APIDetail(props) {
 
       {exp.type === "function" && <FunctionSummary {...exp}></FunctionSummary>}
       {exp.type !== "function" && (
-        <div>
+        <div className="w-full m-auto max-w-6xl">
           <header>
             <h3 className="text-2xl">Summary</h3>
             <p>
@@ -37,7 +37,7 @@ export default function APIDetail(props) {
         </div>
       )}
 
-      <section className="max-w-6xl">
+      <section className="w-full m-auto max-w-6xl">
         <h3 className="text-2xl">Usages</h3>
         <div>
           <CodeFile language="js">
@@ -54,7 +54,7 @@ ${exp.examples ?? "// no examples"}`}
 
 function FunctionSummary(props) {
   return (
-    <section className="grid grid-cols-1 gap-4">
+    <section className="w-full m-auto max-w-6xl grid grid-cols-1 gap-4">
       <header>
         <h3 className="text-2xl">Summary</h3>
         <p>

@@ -20,7 +20,7 @@ export default function TypeDetail(props) {
 
   return (
     <HomeLayout title={`jerni - type definition - ${type.name}`}>
-      <header>
+      <header className="w-full m-auto max-w-6xl">
         <table>
           <tbody>
             <tr className="text-2xl">
@@ -61,7 +61,7 @@ export default function TypeDetail(props) {
       </header>
 
       {(type.properties || inherits.length > 0) && (
-        <section className="p-2 grid grid-cols-1 gap-4 max-w-6xl">
+        <section className="w-full m-auto max-w-6xl p-2 grid grid-cols-1 gap-4">
           <header>
             <h4 className="font-bold text-lg">Properties</h4>
           </header>
@@ -88,7 +88,10 @@ export default function TypeDetail(props) {
             </section>
           ))}
           {inherits.map((prop) => (
-            <section key={prop.name} className="border rounded shadow m-2">
+            <section
+              key={prop.name}
+              className="rounded shadow m-2 overflow-hidden"
+            >
               <div className="px-4 text-sm bg-teal-500 text-white">
                 inherited from{" "}
                 <Link {...linkToType(...type.extends)}>
