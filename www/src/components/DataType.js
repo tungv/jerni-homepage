@@ -30,12 +30,12 @@ export default function DataType(props) {
   }
   if (props.type === "Record") {
     return (
-      <abbr>
+      <span>
         Record&lt;
         <i>{props.record.key.name}</i>:<DataType {...props.record.key} />,
         <i>{props.record.value.name}</i>:<DataType {...props.record.value} />
         &gt;
-      </abbr>
+      </span>
     );
   }
 
@@ -53,14 +53,14 @@ export default function DataType(props) {
 
   if (props.type === "function") {
     return (
-      <abbr title={`function\n${props.description}`}>
+      <span>
         (
         {props.fn.params.map((p, index, { length }) => (
           <Fragment key={index}>
             {p.optional ? (
-              <abbr title="optional">
+              <span className="italic">
                 [<DataType {...p} />]
-              </abbr>
+              </span>
             ) : (
               <DataType {...p} />
             )}
@@ -80,7 +80,7 @@ export default function DataType(props) {
         )}
         <DataType {...props.fn.returns} />
         {(props.fn.async || props.fn.asyncGenerator) && <span>&gt;</span>}
-      </abbr>
+      </span>
     );
   }
 

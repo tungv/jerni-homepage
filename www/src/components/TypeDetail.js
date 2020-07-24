@@ -67,11 +67,11 @@ export default function TypeDetail(props) {
           </header>
           {ownProps.map((prop) => (
             <section key={prop.name} className="border rounded shadow m-2">
-              <header className="bg-gray-200 px-4 py-2">
+              <header className="bg-gray-200 px-4 py-2 w-full overflow-x-auto">
                 <div className="flex flex-row items-center flex-wrap">
-                  <h5 className="font-bold">{prop.name}</h5>
+                  <h5 className="font-bold mr-1">{prop.name}: </h5>
                   <code className="mr-4">
-                    : <DataType {...prop}></DataType>
+                    <DataType {...prop}></DataType>
                   </code>
                   <p>{prop.description || <em>--</em>}</p>
                 </div>
