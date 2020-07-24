@@ -20,7 +20,7 @@ export default function TypeDetail(props) {
 
   return (
     <HomeLayout title={`jerni - type definition - ${type.name}`}>
-      <header>
+      <header className="w-full m-auto max-w-6xl">
         <table>
           <tbody>
             <tr className="text-2xl">
@@ -61,17 +61,17 @@ export default function TypeDetail(props) {
       </header>
 
       {(type.properties || inherits.length > 0) && (
-        <section className="p-2 grid grid-cols-1 gap-4 max-w-6xl">
+        <section className="w-full m-auto max-w-6xl p-2 grid grid-cols-1 gap-4">
           <header>
             <h4 className="font-bold text-lg">Properties</h4>
           </header>
           {ownProps.map((prop) => (
             <section key={prop.name} className="border rounded shadow m-2">
-              <header className="bg-gray-200 px-4 py-2">
+              <header className="bg-gray-200 px-4 py-2 w-full overflow-x-auto">
                 <div className="flex flex-row items-center flex-wrap">
-                  <h5 className="font-bold">{prop.name}</h5>
+                  <h5 className="font-bold mr-1">{prop.name}: </h5>
                   <code className="mr-4">
-                    : <DataType {...prop}></DataType>
+                    <DataType {...prop}></DataType>
                   </code>
                   <p>{prop.description || <em>--</em>}</p>
                 </div>
@@ -88,7 +88,10 @@ export default function TypeDetail(props) {
             </section>
           ))}
           {inherits.map((prop) => (
-            <section key={prop.name} className="border rounded shadow m-2">
+            <section
+              key={prop.name}
+              className="rounded shadow m-2 overflow-hidden"
+            >
               <div className="px-4 text-sm bg-teal-500 text-white">
                 inherited from{" "}
                 <Link {...linkToType(...type.extends)}>

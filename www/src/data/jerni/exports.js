@@ -17,6 +17,18 @@ export default [
         type: "Journey",
       },
     },
+    examples: [
+      `const journey = createJourney({
+  writeTo: "http://some-server.com",
+  stores: [
+    mongoDBStore,
+    elasticSearchStore,
+  ],
+  onError(err, event) {
+    console.error("event #%d[%s] throws %s", event.id, event.type, err.message);
+  }
+})`,
+    ],
   },
   {
     path: "/lib/mapEvents",
@@ -28,6 +40,8 @@ export default [
         {
           type: "Record",
           name: "handlersMap",
+          description:
+            "an object with keys are event types and values are projection functions",
           record: {
             key: { type: "string", name: "eventName" },
             value: {
@@ -84,14 +98,14 @@ export default [
       "SKIP symbol to explicitly ignore an exception during projection stage",
     examples: [
       `const journey = createJourney({
-writeTo: 'http://some-server.com',
-stores: [/* ... */],
-async onError(err, event) {
-// we don't need to handle error for this event because …
-if (event.type === "SOME_EVENT") {
-  return SKIP;
-}
-}
+  writeTo: 'http://some-server.com',
+  stores: [/* ... */],
+  async onError(err, event) {
+    // we don't need to handle error for this event because …
+    if (event.type === "SOME_EVENT") {
+      return SKIP;
+    }
+  }
 });`,
     ],
   },
