@@ -50,11 +50,11 @@ const ${exp.referredName} = require("${pkgName}${exp.path}");`}
                     href={{
                       pathname: "/references/api/[...exp]",
                       query: {
-                        exp: [pkgName.replace("@", "~"), exp.path].join(""),
+                        exp: [pkgName.replace("@", "@"), exp.path].join(""),
                       },
                     }}
                     as={`/references/api/${[
-                      pkgName.replace("@", "~"),
+                      pkgName.replace("@", "@"),
                       exp.path,
                     ].join("")}`}
                   >
