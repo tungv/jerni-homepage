@@ -4,17 +4,17 @@ import HomeLayout from "../components/HomeLayout";
 import Link from "next/link";
 import pkgs from "../data/pkgs";
 import CodeFile from "../components/CodeFile";
-import IconBook10 from "../icons/Book10";
+import IconArrowRight from "../icons/ArrowRight";
 import linkToType from "../linkToTypes";
 
 export default function ReferencesPage() {
   return (
     <HomeLayout title="jerni - API References">
       <section className="w-full max-w-4xl m-auto p-2">
-        <h2 className="text-3xl">API References</h2>
+        <h2 className="text-3xl text-center">API References</h2>
       </section>
 
-      <section className="w-full max-w-4xl m-auto p-2 grid grid-cols-1 gap-4">
+      <section className="w-full max-w-6xl xl:max-w-full xl:px-20 m-auto p-2 grid grid-cols-1 xl:grid-cols-2 gap-4">
         {pkgs.map((pkg) => (
           <Package {...pkg} key={pkg.pkgName} />
         ))}
@@ -59,7 +59,7 @@ const ${exp.referredName} = require("${pkgName}${exp.path}");`}
                     ].join("")}`}
                   >
                     <a className="no-underline bg-teal-500 text-white absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center">
-                      <IconBook10 />
+                      <IconArrowRight />
                     </a>
                   </Link>
                 </div>
@@ -70,12 +70,12 @@ const ${exp.referredName} = require("${pkgName}${exp.path}");`}
 
         <div>
           <h4 className="text-lg m-2">Types</h4>
-          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 col-gap-2 row-gap-px">
             {types.map((type) => (
               <li key={type.name} className="">
                 <Link {...linkToType(pkgName, type.name)}>
                   <a>
-                    <h5 className="p-2">{type.name}</h5>
+                    <h5 className="px-2 py-1">{type.name}</h5>
                   </a>
                 </Link>
               </li>

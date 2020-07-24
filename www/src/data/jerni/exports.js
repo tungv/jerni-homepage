@@ -28,6 +28,8 @@ export default [
         {
           type: "Record",
           name: "handlersMap",
+          description:
+            "an object with keys are event types and values are projection functions",
           record: {
             key: { type: "string", name: "eventName" },
             value: {

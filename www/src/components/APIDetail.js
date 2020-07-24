@@ -67,32 +67,28 @@ function FunctionSummary(props) {
           <header>
             <h4 className="font-bold text-lg">Parameters</h4>
           </header>
-          <div className="mx-4 my-2">
-            <table className="table-auto">
-              <thead>
-                <tr>
-                  <th className="bg-gray-700 text-white border p-1">Name</th>
-                  <th className="bg-gray-700 text-white border p-1">Type</th>
-                  <th className="bg-gray-700 text-white border p-1">
-                    Description
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {props.fn.params.map((param) => (
-                  <tr key={param.name}>
-                    <td className="border px-4 py-2">{param.name}</td>
-                    <td className="border px-4 py-2 font-mono">
-                      <DataType {...param}></DataType>
-                    </td>
-                    <td className="border px-4 py-2 font-serif">
-                      {param.description || <em>--</em>}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          {props.fn.params.map((prop) => (
+            <section key={prop.name} className="border rounded shadow m-2">
+              <header className="bg-gray-200 px-4 py-2">
+                <div className="flex flex-row items-center flex-wrap">
+                  <h5 className="font-bold">{prop.name}</h5>
+                  <code className="mr-4">
+                    : <DataType {...prop}></DataType>
+                  </code>
+                  <p>{prop.description || <em>--</em>}</p>
+                </div>
+              </header>
+
+              {prop.examples && (
+                <div className="p-4 grid grid-cols-1 gap-4">
+                  <header>
+                    <h6 className="font-bold">Examples</h6>
+                  </header>
+                  <Examples examples={prop.examples} />
+                </div>
+              )}
+            </section>
+          ))}
         </section>
       )}
 
