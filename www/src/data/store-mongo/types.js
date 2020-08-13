@@ -79,6 +79,28 @@ const MongoDBReadModel = {
         returns: { type: ["MongoDbOperation"] },
       },
     },
+    {
+      name: "collectionName",
+      type: "string",
+      description: "getter for the underlaying collection name",
+      examples: [
+        {
+          fileName: "journey/models/users.js",
+          code: `
+const { Model } = require("@jerni/store-mongo");
+
+const userModel = new Model({
+  name: "users",
+  version: "3",
+  transform(event) { /* ... */ }
+});
+
+console.log(userModel.collectionName);
+          `,
+          result: `"users_v3"`,
+        },
+      ],
+    },
   ],
 };
 
