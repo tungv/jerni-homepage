@@ -38,6 +38,17 @@ const MongoDbStore = {
         ],
         returns: { type: "MongoDbReadOnlyCollection" },
       },
+      examples: [
+        {
+          code: `
+const usersModel = require('../journey/models/users');
+
+/* ... */
+const UsersCollection = await journey.getReader(usersModel);
+const someUser = await UsersCollection.findOne({ id: '1000' });
+`,
+        },
+      ],
     },
     {
       name: "handleEvents",
