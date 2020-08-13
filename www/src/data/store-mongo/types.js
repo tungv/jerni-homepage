@@ -12,7 +12,7 @@ const MongoDbStoreConfig = {
     { name: "dbName", type: "string", description: "mongodb database name" },
     {
       name: "models",
-      type: ["MongoDBReadModel"],
+      type: ["MongoDbReadModel"],
       description: "list of mongodb models, order doesn't matter",
     },
   ],
@@ -32,7 +32,7 @@ const MongoDbStore = {
         params: [
           {
             name: "Model",
-            type: "MongoDbReadOnlyModel",
+            type: "MongoDbReadModel",
             optional: true,
           },
         ],
@@ -49,7 +49,7 @@ const MongoDbStore = {
         params: [
           {
             name: "events",
-            type: ["CommittedEvent"],
+            type: ["jerni", "CommittedEvent"],
           },
         ],
         returns: { type: ["MongoDbOperation"] },
@@ -58,8 +58,8 @@ const MongoDbStore = {
   ],
 };
 
-const MongoDBReadModel = {
-  name: "MongoDBReadModel",
+const MongoDbReadModel = {
+  name: "MongoDbReadModel",
   extends: ["jerni", "DataModel"],
   description: "Encapsulate projection logic for a MongoDB Collection",
   properties: [
@@ -139,7 +139,7 @@ await makeMongoDbStore({
     {
       name: "Model",
       type: "Class",
-      classOf: "MongoDBReadModel",
+      classOf: "MongoDbReadModel",
       description: "Encapsulate projection logic for a MongoDB Collection",
     },
     {
@@ -149,7 +149,7 @@ await makeMongoDbStore({
         params: [
           {
             name: "model",
-            type: "MongoDBReadModel",
+            type: "MongoDbReadModel",
             optional: true,
           },
           {
@@ -265,7 +265,7 @@ const MongoDbReadOnlyCollection = {
 const storeMongoTypes = [
   MongoDbStoreConfig,
   MongoDbStore,
-  MongoDBReadModel,
+  MongoDbReadModel,
   StoreMongoDefaultExport,
   MongoDbOperation,
   MongoDbReadOnlyCollection,
