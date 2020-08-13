@@ -32,7 +32,16 @@ export default function TypeDetail(props) {
 
             <tr>
               <td className="text-gray-500 px-2 py-1 text-right">Namespace:</td>
-              <td className="font-mono">{pkg.pkgName}</td>
+              <td className="font-mono">
+                <Link
+                  href={{
+                    pathname: "/references",
+                    query: { highlight: pkg.pkgName },
+                  }}
+                >
+                  <a>{pkg.pkgName}</a>
+                </Link>
+              </td>
             </tr>
 
             <tr>
