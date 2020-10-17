@@ -30,7 +30,7 @@ export default function HomeLayout({
             </Link>
           </li>
           <li>
-            <Link href="/tutorials">
+            <Link href="/tutorials/getting-started">
               <a>Tutorials</a>
             </Link>
           </li>
