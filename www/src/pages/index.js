@@ -36,7 +36,7 @@ export default function JerniHomePage() {
           </a>{" "}
           despite some differences from the mainstream implementations . It also
           embraces the functional programming techniques to simplify
-          state-changing operations without sacrifice flexibility.
+          state-changing operations without sacrificing flexibility.
         </p>
 
         <p className="max-w-4xl m-auto text-lg font-serif p-1 px-6">
